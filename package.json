@@ -22,6 +22,7 @@
     "@astrojs/solid-js": "^4.4.0",
     "@astrojs/tailwind": "^5.1.0",
     "@biomejs/biome": "^1.8.3",
+    "@fontsource/cabin": "^5.0.18",
     "@tailwindcss/typography": "^0.5.13",
     "astro": "^4.12.2",
     "clsx": "^2.1.1",

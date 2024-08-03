@@ -9,9 +9,7 @@ import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://keonik.github.io",
-  base: "astro-demo",
-  output: "static",
+  site: "https://keonik.github.io/astro-demo/",
   markdown: {
     // Applied to .md and .mdx files
     remarkPlugins: [[remarkToc, { heading: "toc" }]],

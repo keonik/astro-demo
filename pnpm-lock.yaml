@@ -32,6 +32,9 @@ importers:
       '@biomejs/biome':
         specifier: ^1.8.3
         version: 1.8.3
+      '@fontsource/cabin':
+        specifier: ^5.0.18
+        version: 5.0.18
       '@tailwindcss/typography':
         specifier: ^0.5.13
         version: 0.5.13(tailwindcss@3.4.7)
@@ -454,6 +457,9 @@ packages:
     engines: {node: '>=12'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource/cabin@5.0.18':
+    resolution: {integrity: sha512-gxPravTFK1xa70FgfpvViR7mehsAUttQnCopOJzHEK6Qf2NHu+z62Z7v94WcsRKsuG93oLmMGF+l+jrPhf0RyA==}
 
   '@img/sharp-darwin-arm64@0.33.4':
     resolution: {integrity: sha512-p0suNqXufJs9t3RqLBO6vvrgr5OhgbWp76s5gTRvdmxmuv9E1rcaqGUsl3l4mKVmXPkTkTErXediAui4x+8PSA==}
@@ -2914,6 +2920,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.21.5':
     optional: true
+
+  '@fontsource/cabin@5.0.18': {}
 
   '@img/sharp-darwin-arm64@0.33.4':
     optionalDependencies:
