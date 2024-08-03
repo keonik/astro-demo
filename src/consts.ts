@@ -78,3 +78,6 @@ export const SOCIALS: Socials = [
   //     HREF: "https://twitter.com/markhorn_dev",
   //   },
 ];
+
+export const BASE_PATH = import.meta.env.DEV ? "" : "/astro-demo";
+// export const BASE_PATH = "/astro-demo";
