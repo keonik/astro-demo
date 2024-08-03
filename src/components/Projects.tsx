@@ -90,7 +90,7 @@ export default function Projects({ data, tags }: Props) {
           </div>
           <ul class="flex flex-col gap-3">
             {projects().map((project) => (
-              <li key={project.id}>
+              <li>
                 <ArrowCard entry={project} />
               </li>
             ))}

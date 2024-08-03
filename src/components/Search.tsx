@@ -55,7 +55,7 @@ export default function Search({ data }: Props) {
           </div>
           <ul class="flex flex-col gap-3">
             {results().map((result) => (
-              <li key={result.id}>
+              <li>
                 <ArrowCard entry={result} pill={true} />
               </li>
             ))}

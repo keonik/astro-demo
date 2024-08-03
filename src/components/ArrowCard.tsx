@@ -28,10 +28,7 @@ export default function ArrowCard({ entry, pill }: Props) {
         <div class="text-sm line-clamp-2">{entry.data.summary}</div>
         <ul class="flex flex-wrap mt-2 gap-1">
           {entry.data.tags.map((tag) => (
-            <li
-              key={tag}
-              class="text-xs uppercase py-0.5 px-1 rounded bg-black/5 dark:bg-white/20 text-black/75 dark:text-white/75"
-            >
+            <li class="text-xs uppercase py-0.5 px-1 rounded bg-black/5 dark:bg-white/20 text-black/75 dark:text-white/75">
               {tag}
             </li>
           ))}
