@@ -1,8 +1,7 @@
 import type { CollectionEntry } from "astro:content";
 import { createEffect, createSignal, For } from "solid-js";
 import ArrowCard from "@components/ArrowCard";
-import { cn } from "@lib/utils";
-import { BASE_PATH } from "@consts";
+import { cn, getAstroPath } from "@lib/utils";
 
 type Props = {
   tags: string[];
@@ -68,11 +67,11 @@ export default function Projects({ data, tags }: Props) {
                       )}
                     >
                       <use
-                        href={`${BASE_PATH}/ui.svg#square`}
+                        href={getAstroPath("/ui.svg#square")}
                         class={cn(!filter().has(tag) ? "block" : "hidden")}
                       />
                       <use
-                        href={`${BASE_PATH}/ui.svg#square-check`}
+                        href={getAstroPath("/ui.svg#square-check")}
                         class={cn(filter().has(tag) ? "block" : "hidden")}
                       />
                     </svg>

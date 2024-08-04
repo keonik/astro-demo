@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: http://localhost:4321/sitemap-index.xml
+Sitemap: https://keonik.github.io/astro-demo/sitemap-index.xml
