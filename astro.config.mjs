@@ -9,21 +9,32 @@ import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://keonik.github.io/astro-demo/",
-  // base: import.meta.env.DEV ? "" : "astro-demo",
-  base: "astro-demo",
   markdown: {
     // Applied to .md and .mdx files
-    remarkPlugins: [[remarkToc, { heading: "toc" }]],
+    remarkPlugins: [
+      [
+        remarkToc,
+        {
+          heading: "toc",
+        },
+      ],
+    ],
     rehypePlugins: [
       rehypeAccessibleEmojis,
-      [rehypeHeadingIds, { behavior: "append" }],
+      [
+        rehypeHeadingIds,
+        {
+          behavior: "append",
+        },
+      ],
     ],
   },
   integrations: [
     mdx(),
     sitemap(),
     solidJs(),
-    tailwind({ applyBaseStyles: false }),
+    tailwind({
+      applyBaseStyles: false,
+    }),
   ],
 });
