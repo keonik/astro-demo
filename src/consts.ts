@@ -80,4 +80,4 @@ export const SOCIALS: Socials = [
 ];
 
 // export const BASE_PATH = import.meta.env.DEV ? "" : "/astro-demo";
-export const BASE_PATH = "/astro-demo";
+export const BASE_PATH = "";

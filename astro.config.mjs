@@ -9,6 +9,7 @@ import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://jfay.dev",
   markdown: {
     // Applied to .md and .mdx files
     remarkPlugins: [
