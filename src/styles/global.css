@@ -68,14 +68,6 @@
   @apply bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 rounded-lg;
 }
 
-.prose .astro-code {
-  background-color: #f8f9fa !important;
-}
-
-html.dark .prose .astro-code {
-  background-color: rgba(17, 24, 39, 0.5) !important;
-}
-
 /* Reset code inside pre — let Shiki handle styling */
 .prose :where(pre code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   background: none;
@@ -85,11 +77,18 @@ html.dark .prose .astro-code {
 }
 
 /* Shiki dual-theme support
-   Light theme: uses inline color/background-color directly — no override needed.
-   Dark theme: swap to --shiki-dark CSS variables. */
+   Shiki sets both light (inline) and dark (--shiki-dark) styles on every element.
+   We need to force the right one based on html.dark class. */
+
+/* Light mode: use inline colors (already set by Shiki), override background */
+.astro-code {
+  background-color: #f8f9fa !important;
+}
+
+/* Dark mode: swap to CSS custom properties */
 html.dark .astro-code {
   color: var(--shiki-dark) !important;
-  background-color: var(--shiki-dark-bg) !important;
+  background-color: #111827 !important;
 }
 
 html.dark .astro-code span {
