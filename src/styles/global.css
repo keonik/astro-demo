@@ -76,20 +76,16 @@
   font-size: inherit;
 }
 
-/* Shiki dual-theme support */
-.astro-code,
-.astro-code span {
-  color: var(--shiki-light) !important;
-  background-color: var(--shiki-light-bg) !important;
-}
-
-html.dark .astro-code,
-html.dark .astro-code span {
+/* Shiki dual-theme support
+   Light theme: uses inline color/background-color directly — no override needed.
+   Dark theme: swap to --shiki-dark CSS variables. */
+html.dark .astro-code {
   color: var(--shiki-dark) !important;
   background-color: var(--shiki-dark-bg) !important;
 }
 
 html.dark .astro-code span {
+  color: var(--shiki-dark) !important;
   background-color: transparent !important;
 }
 
