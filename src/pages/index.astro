@@ -1,220 +1,107 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import PageLayout from "@layouts/PageLayout.astro";
-import ArrowCard from "@components/ArrowCard";
-import StackCard from "@components/StackCard.astro";
-import {  SITE, SOCIALS } from "@consts";
-import TwinklingStars from "@components/TwinklingStars.astro";
-import MeteorShower from "@components/MeteorShower.astro";
-import { getAstroPath } from "@lib/utils";
+import { formatDate, sortByDate } from "../lib/utils";
 
-const posts = (await getCollection("blog"))
-	.filter((post) => !post.data.draft)
-	.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-	.slice(0, 3);
+const posts = sortByDate(
+  (await getCollection("blog")).filter((p) => !p.data.draft)
+).slice(0, 3);
 
-const projects = (await getCollection("projects"))
-	.filter((project) => !project.data.draft)
-	.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-	.slice(0, 3);
-
-const stack = [
-	{
-		text: "Astro",
-		icon: "astro",
-		href: "https://astro.build",
-	},
-	{
-		text: "Javascript",
-		icon: "javascript",
-		href: "https://www.javascript.com",
-	},
-	{
-		text: "Typescript",
-		icon: "typescript",
-		href: "https://www.typescriptlang.org",
-	},
-	{
-		text: "Tailwind",
-		icon: "tailwind",
-		href: "https://tailwindcss.com",
-	},
-];
+const projects = sortByDate(
+  (await getCollection("projects")).filter((p) => !p.data.draft)
+).slice(0, 3);
 ---
 
-<PageLayout title="Home" description={SITE.DESCRIPTION}>
-
-  <!-- Light Mode: Particles -->
-  <div class='absolute inset-0 block dark:hidden'>
-    <div id='particles1' class='fixed inset-0'></div>
-    <div id='particles2' class='fixed inset-0'></div>
-    <div id='particles3' class='fixed inset-0'></div>
-  </div>
-
-  <!-- Dark Theme: Stars -->
-  <div class='absolute inset-0 bg-black hidden dark:block'>
-    <div id='stars1' class='fixed inset-0'></div>
-    <div id='stars2' class='fixed inset-0'></div>
-    <div id='stars3' class='fixed inset-0'></div>
-  </div>
-
-  <!-- Dark Theme: Twinkling Stars / Metors -->
-  <div id="galaxy" class="fixed inset-0">
-    <div class="hidden dark:block">
-      <TwinklingStars/>
-      <MeteorShower/>
-    </div>
-  </div>
-
-  <script is:inline src={getAstroPath("/js/bg.js")}></script>
-  
-  <!-- HERO -->
-  <section class="relative h-screen w-full">
-    <div id="planetcont" class='animate absolute inset-0 top-1/4 overflow-hidden'>
-      <div id="crescent" class='absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] min-h-[100vh] aspect-square rounded-full p-[1px] bg-gradient-to-b from-black/25 dark:from-white/75 from-0% to-transparent to-5%'>
-        <div id="planet" class='w-full h-full bg-white dark:bg-black rounded-full p-[1px] overflow-hidden flex justify-center'>
-          <div id="blur" class='w-full h-20 rounded-full bg-neutral-900/25 dark:bg-white/25 blur-3xl'/>
-        </div>
+<BaseLayout>
+  <div class="max-w-3xl mx-auto px-6 py-20">
+    <!-- Hero -->
+    <section class="animate-fade-in-up">
+      <p class="text-sm font-medium text-accent dark:text-accent-dark mb-2">Hey, I'm</p>
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
+        John Fay
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400 max-w-xl leading-relaxed">
+        Software Engineer Manager building efficient teams and shipping products.
+        Navy veteran, open-source contributor, and forever learner.
+      </p>
+      <div class="flex gap-4 mt-6">
+        <a href="/work" class="text-sm font-medium text-accent dark:text-accent-dark hover:underline">
+          View my work &rarr;
+        </a>
+        <a href="/blog" class="text-sm font-medium text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:underline">
+          Read my blog &rarr;
+        </a>
       </div>
-    </div>
-    <div class="animate absolute h-full w-full flex items-center justify-center">
-      <div class='relative w-full h-full flex items-center justify-center'>
-        <div class='p-5 text-center'>
-          <p class='animated text-lg md:text-xl lg:text-2xl font-semibold opacity-75'>
-            Hello, I am ...
-          </p>
-          <p class='animated text-2xl md:text-3xl lg:text-4xl font-bold uppercase text-black dark:text-white'>
-            John Fay
-          </p>
-          <p class='animated text-sm md:text-base lg:text-lg opacity-75'>
-            Currently designing products for humans.
-          </p>
-          <div id="ctaButtons" class='animated flex flex-wrap gap-4 justify-center mt-5'>
-            <a href={getAstroPath('/blog')} class='py-2 px-4 rounded truncate text-xs md:text-sm lg:text-base bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend'>
-              Read my blog
-            </a>
-            <a href={getAstroPath('/work')} class='py-2 px-4 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend'>
-              View my work
-            </a>
-          </div>
-        </div>
+    </section>
+
+    <!-- Recent Posts -->
+    <section class="mt-20 animate-fade-in-up animate-delay-100">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-xl font-semibold">Recent Posts</h2>
+        <a href="/blog" class="text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
+          View all &rarr;
+        </a>
       </div>
-    </div>
-  </section>
+      <div class="space-y-6">
+        {posts.map((post) => (
+          <a href={`/blog/${post.id}`} class="block group">
+            <article class="p-4 -mx-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors">
+              <div class="flex items-baseline justify-between gap-4">
+                <h3 class="font-medium group-hover:text-accent dark:group-hover:text-accent-dark transition-colors">
+                  {post.data.title}
+                </h3>
+                <time class="text-sm text-gray-400 shrink-0" datetime={post.data.date.toISOString()}>
+                  {formatDate(post.data.date)}
+                </time>
+              </div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 line-clamp-1">
+                {post.data.summary}
+              </p>
+            </article>
+          </a>
+        ))}
+      </div>
+    </section>
 
-  <div class="relative bg-white dark:bg-black">
-    <div class="mx-auto max-w-screen-sm p-5 space-y-24 pb-16">
-
-      <!-- About Section -->
-      <section class="animate">
-        <article>
-          <p>I am a <b><i>software engineer</i></b>, <b><i>mentor</i></b>, <b><i>continuous learner</i></b>, <b><i>product planner</i></b>, <b><i>minimalist</i></b>, <b><i>homestead enthusiast</i></b>, <b><i>aspiring endurance cyclist</i></b> and <b><i>sarcasm connoisseur</i></b>.</p>
-          <p> I favor a bias toward action which empowers me to learn by doing. I am motivated by shared understanding and collaboration. I am an advocate for leaving things better than I found them in all aspects of life which is why my work is focused on creating delightful user experiences.</p>
-          <p>During my career</p>
-          <p>I have built products ranging from hardware integration to web based suites of collaboration and performance monitoring applications with focus on delivering fast, elegant code along with delightful user interfaces.</p>
-          <p>Now</p>
-          <p>I currently work as a software engineer manager at Mile Two, where I do product planning, design and development.</p>
-        </article>
-      </section>
-
-      <!-- Blog Preview Section -->
-      <section class="animate">
-        <div class="space-y-4">
-          <div class="flex justify-between">
-            <p class="font-semibold text-black dark:text-white">
-              Recent posts
-            </p>
-            <a href={getAstroPath("/blog")} class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
-              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
-                All posts
-              </span>
-            </a>
-          </div>
-          <ul class="space-y-4">
-            {posts.map((post) => (
-              <li>
-                <ArrowCard entry={post} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <!-- Tech Stack Section -->
-      <section class="animate">
-        <div class="space-y-4">
-          <p class="font-semibold text-black dark:text-white">
-            Website build with
-          </p>
-          <div class="flex flex-wrap items-center gap-2 mt-5">
-            {stack.map(item => (
-              <StackCard 
-                text={item.text}
-                icon={item.icon}
-                href={item.href}
-              />
-            ))}
-          </div>
-          <div>
-            Performing reactivity and statefulness, special guest
-            <a href="https://www.solidjs.com/" target="_blank" class="w-fit group underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
-              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
-                SolidJS
-              </span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Project Preview Section -->
-      <section class="animate">
-        <div class="space-y-4">
-          <div class="flex justify-between">
-            <p class="font-semibold text-black dark:text-white">
-              Recent projects
-            </p>
-            <a href={getAstroPath("/projects")} class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
-              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
-                All projects
-              </span>
-            </a>
-          </div>
-          <ul class="space-y-4">
-            {projects.map((project) => (
-              <li>
-                <ArrowCard entry={project} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <!-- Contact Section -->
-      <section class="animate">
-        <div>
-          <p class="font-semibold text-black dark:text-white">
-            Let's Connect
-          </p>
-          <p>
-            Reach out to me via email or on social media.
-          </p>
-          <div class="grid grid-cols-4 gap-y-2 mt-4 auto-cols-min">
-            {SOCIALS.map(social => (
-              <div class="col-span-1 flex items-center gap-1">
-                <span class="whitespace-nowrap truncate">
-                  {social.NAME}
+    <!-- Projects -->
+    <section class="mt-20 animate-fade-in-up animate-delay-200">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-xl font-semibold">Projects</h2>
+        <a href="/projects" class="text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
+          View all &rarr;
+        </a>
+      </div>
+      <div class="grid gap-4">
+        {projects.map((project) => (
+          <div class="p-4 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-colors">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="font-medium">{project.data.title}</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{project.data.summary}</p>
+              </div>
+              <div class="flex gap-2 shrink-0">
+                {project.data.repoUrl && (
+                  <a href={project.data.repoUrl} target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors" aria-label="Source code">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                  </a>
+                )}
+                {project.data.demoUrl && (
+                  <a href={project.data.demoUrl} target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors" aria-label="Demo">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                  </a>
+                )}
+              </div>
+            </div>
+            <div class="flex gap-2 mt-3">
+              {project.data.tags.map((tag) => (
+                <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+                  {tag}
                 </span>
-              </div>
-              <div class="col-span-3 truncate">
-                <a href={social.HREF} target="_blank" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
-                  <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
-                    {social.TEXT}
-                  </span>
-                </a>
-              </div>
-            ))}
-        </div>
-      </section>
-    </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
   </div>
-</PageLayout>
+</BaseLayout>

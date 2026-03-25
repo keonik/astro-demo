@@ -1,36 +1,56 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
-import PageLayout from "@layouts/PageLayout.astro";
-import TopLayout from "@layouts/TopLayout.astro";
-import BottomLayout from "@layouts/BottomLayout.astro";
-import ArticleTopLayout from "@layouts/ArticleTopLayout.astro";
-import ArticleBottomLayout from "@layouts/ArticleBottomLayout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+import { formatDate } from "../../lib/utils";
 
-// Create the static blog pages
 export async function getStaticPaths() {
-	const posts = await getCollection("blog");
-	return posts.map((post) => ({
-		params: { slug: post.slug },
-		props: post,
-	}));
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
 }
 
-// Get the requested post
-type Props = CollectionEntry<"blog">;
-const post = Astro.props;
-const { title, summary } = post.data;
+const { post } = Astro.props;
+const { Content } = await render(post);
 ---
 
-<PageLayout title={title} description={summary}>
-  <TopLayout>
-    <div class="animate">
-      <ArticleTopLayout entry={post}/>
+<BaseLayout title={post.data.title} description={post.data.summary}>
+  <article class="max-w-3xl mx-auto px-6 py-20">
+    <header class="mb-10 animate-fade-in-up">
+      <a href="/blog" class="text-sm text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors mb-4 inline-block">
+        &larr; Back to blog
+      </a>
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight mt-2">
+        {post.data.title}
+      </h1>
+      <div class="flex items-center gap-3 mt-4 text-sm text-gray-500 dark:text-gray-400">
+        <time datetime={post.data.date.toISOString()}>
+          {formatDate(post.data.date)}
+        </time>
+        {post.data.lastUpdated && (
+          <>
+            <span>·</span>
+            <span>Updated {formatDate(post.data.lastUpdated)}</span>
+          </>
+        )}
+      </div>
+      {post.data.tldr && post.data.tldr !== "n/a" && (
+        <div class="mt-4 p-3 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-sm">
+          <strong>TL;DR:</strong> {post.data.tldr}
+        </div>
+      )}
+      <div class="flex gap-2 mt-4">
+        {post.data.tags.map((tag) => (
+          <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+            {tag}
+          </span>
+        ))}
+      </div>
+    </header>
+
+    <div class="prose prose-lg max-w-none animate-fade-in-up animate-delay-100">
+      <Content />
     </div>
-  </TopLayout>
-  <BottomLayout>
-    
-    <div class="animate">
-      <ArticleBottomLayout entry={post} />
-    </div>
-  </BottomLayout>
-</PageLayout>
+  </article>
+</BaseLayout>
