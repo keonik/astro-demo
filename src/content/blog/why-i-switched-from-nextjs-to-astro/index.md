@@ -2,13 +2,12 @@
 title: "Why I Switched from Next.js to Astro for My Portfolio"
 date: "Mar 10 2026"
 draft: false
-summary: "I've rebuilt my portfolio four times: Gatsby, Next.js, SolidStart, and now Astro. Here's the journey and why Astro is the one that stuck."
+summary: "I've rebuilt my portfolio three times: Gatsby, Next.js, and now Astro. Here's the journey and why Astro is the one that stuck."
 tldr: Astro ships zero JS by default, content collections make blog management trivial, and you don't need React on the client for a content site. Stop shipping SPAs for static content.
 tags:
   - astro
   - nextjs
   - gatsby
-  - solidjs
   - portfolio
 ---
 
@@ -18,7 +17,6 @@ Let me be honest about my track record:
 
 - **2020** — Gatsby → CMS integration was overkill
 - **2020** — Next.js → Worked fine, got bored
-- **2022** — SolidStart → Ecosystem was too young
 - **2026** — Astro → Still here
 
 Every developer rebuilds their portfolio too many times. I'm not going to pretend I'm above that.
@@ -29,7 +27,7 @@ But each rewrite taught me something about what a portfolio site actually needs 
 
 ## What a portfolio actually needs
 
-After four versions, here's the real requirements list:
+After three versions, here's the real requirements list:
 
 1. Static content that loads fast
 2. Good SEO — meta tags, sitemap, RSS feed
@@ -52,14 +50,6 @@ Build times were also rough. For a site with 6 blog posts, waiting 30+ seconds f
 Next.js is great. I use it professionally. But for a portfolio, it's bringing a framework designed for full-stack web applications to a problem that needs a static site generator.
 
 With Next.js, you're shipping React to the client by default. Your "About" page — which is literally just text and a photo — gets hydrated with a full React runtime. You can optimize this with server components and static exports, but you're fighting the framework's defaults instead of working with them.
-
-## Why SolidStart was too early
-
-I genuinely like Solid.js. The reactivity model is elegant and the performance is great. But in 2022, SolidStart was brand new. The routing was in flux, the ecosystem was small, and building a portfolio on it felt like beta-testing someone else's framework.
-
-I'd consider SolidStart again for an app. For a content site, it has the same fundamental problem as Next.js — it's an app framework being used for static content.
-
-![Jim - Not great](https://media.giphy.com/media/6JB4v4xPTAQFi/giphy.gif)
 
 ## Why Astro stuck
 
@@ -108,8 +98,8 @@ The biggest change was mental: **stop reaching for `useState` and `useEffect`.**
 
 ## When NOT to use Astro
 
-If your site has significant interactivity — dashboards, forms, real-time features — Astro isn't the right choice. Use Next.js, Remix, or SolidStart.
+If your site has significant interactivity — dashboards, forms, real-time features — Astro isn't the right choice. Use Next.js or Remix.
 
-If your site is primarily content with occasional interactivity, Astro is the best tool I've used. Four portfolio rewrites later, I think this one might actually stick.
+If your site is primarily content with occasional interactivity, Astro is the best tool I've used. Three portfolio rewrites later, I think this one might actually stick.
 
 ![Michael Scott - I love inside jokes. I'd love to be part of one someday.](https://media.giphy.com/media/l0HlPystfePnAI3G8/giphy.gif)
