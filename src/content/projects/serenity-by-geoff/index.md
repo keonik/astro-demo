@@ -1,6 +1,7 @@
 ---
 title: "Serenity by Geoff"
 summary: "A joke app built as a birthday gift for a friend. Because the best gifts are the ones you code."
+demoUrl: https://sbg.jfay.dev/
 repoUrl: https://github.com/keonik/serenity-by-geoff
 tags:
   - remix
