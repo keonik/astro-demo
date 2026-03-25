@@ -1,6 +1,6 @@
 ---
 title: "Why I Switched from Next.js to Astro for My Portfolio"
-date: "Mar 25 2026"
+date: "Mar 10 2026"
 draft: false
 summary: "I've rebuilt my portfolio four times: Gatsby, Next.js, SolidStart, and now Astro. Here's the journey and why Astro is the one that stuck."
 tldr: Astro ships zero JS by default, content collections make blog management trivial, and you don't need React on the client for a content site. Stop shipping SPAs for static content.

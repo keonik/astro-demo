@@ -1,6 +1,6 @@
 ---
 title: "Going Native with Electrobun: Building a Desktop PDF Signer"
-date: "Mar 25 2026"
+date: "Jan 8 2025"
 draft: false
 summary: Why I picked Electrobun over Electron for a desktop PDF signing app with PKCS#11 smart card integration, and what the Bun-native desktop experience is actually like.
 tldr: Electrobun gives you Bun-native desktop apps without the Chromium tax. PKCS#11 smart card signing is painful but doable through Bun FFI. Young ecosystem but promising for the right use case.

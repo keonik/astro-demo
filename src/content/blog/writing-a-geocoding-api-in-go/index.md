@@ -1,6 +1,6 @@
 ---
 title: "Writing a Geocoding API in Go (Coming from TypeScript)"
-date: "Mar 25 2026"
+date: "Mar 18 2026"
 draft: false
 summary: What it's like switching from TypeScript to Go for an API project — the good, the painful, and the surprisingly ergonomic PostGIS queries.
 tldr: Go compiles to a single binary with no runtime. Echo feels like Hono. PostGIS is magic. Error handling is verbose but saves you. Zero regrets.

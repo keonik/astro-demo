@@ -1,6 +1,6 @@
 ---
 title: "MCP in Practice: Connecting AI to Real Data Sources"
-date: "Mar 25 2026"
+date: "Feb 20 2026"
 draft: false
 summary: What Model Context Protocol actually looks like in production — lessons from integrating MCP into Gameplan Network and Milli, beyond the hype.
 tldr: MCP standardizes how AI models access tools and data. The protocol is simple but tool design is everything — keep tools narrow, descriptions specific, and test with the dumbest model you support.

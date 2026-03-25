@@ -1,6 +1,6 @@
 ---
 title: "Running Local LLMs on Apple Silicon with MLX"
-date: "Mar 25 2026"
+date: "Feb 2 2026"
 draft: false
 summary: A practical guide to running LLMs locally on Mac using MLX — what works, what's fast, and why local inference matters for developers.
 tldr: MLX on Apple Silicon gives you 400+ tok/s for small models. Use vLLM-MLX for an OpenAI-compatible server. Great for development, prototyping, and privacy-sensitive workloads. Five minute setup.

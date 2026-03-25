@@ -1,6 +1,6 @@
 ---
 title: "Building a 1000⭐ Open Source Prisma Tool"
-date: "Mar 25 2026"
+date: "Jul 15 2024"
 draft: false
 summary: How prisma-erd-generator went from a weekend hack to 1000+ stars, 64 forks, and 23 contributors — and what I learned maintaining open source along the way.
 tldr: Solve your own problem, make it a Prisma generator so it runs automatically, make it easy to contribute, and be patient. Stars come from solving real pain points.

@@ -1,6 +1,6 @@
 ---
 title: "Offline-First Audio Transcription with Whisper.cpp in the Browser"
-date: "Mar 25 2026"
+date: "Jan 18 2026"
 draft: false
 summary: How I built Transcriber I Hardly Knew Her — a privacy-first transcription app that records and transcribes audio entirely in the browser using Whisper.cpp compiled to WebAssembly.
 tldr: Whisper.cpp compiles to WASM and runs in the browser. IndexedDB via Dexie handles offline storage. Audio never leaves the device. Slower than server-side but the privacy tradeoff is worth it.

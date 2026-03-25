@@ -1,6 +1,6 @@
 ---
 title: "Shipping a React Native App While Sleep Deprived"
-date: "Mar 25 2026"
+date: "Sep 5 2025"
 draft: false
 summary: Building Diaper Diaries — an Expo app that helps parents track and teach their newborns' bathroom patterns. Built out of necessity at 3am.
 tldr: Expo's DX is incredible for side projects. Build something you actually need. Sleep deprivation is a surprisingly effective motivator and scope-creep killer.
