@@ -2,110 +2,135 @@
 title: "Ditching the Theme Toggle: System Theme Detection in Astro"
 date: "Mar 24 2026"
 draft: false
-summary: How I removed the manual dark mode toggle from my portfolio and replaced it with system theme detection — complete with Shiki dual-theme syntax highlighting and live theme switching.
-tldr: Drop the toggle, use prefers-color-scheme with a tiny inline script, wire up Shiki dual themes, and add a matchMedia listener for live system changes.
+summary: How I built system theme detection for my portfolio — an inline script for flash prevention, React hooks for reactive switching, and Shiki dual-theme syntax highlighting.
+tldr: Inline script in head for initial paint, useEffect for reactive theme changes, matchMedia listener for live system preference updates, and CSS custom properties for Shiki dual themes.
 tags:
   - astro
+  - react
   - css
   - dark-mode
   - tailwindcss
 ---
 
-## Why I Killed the Toggle
+## The Problem
 
-I had the standard sun/moon toggle in my header. It worked, but it bothered me. Every visitor already has a theme preference set at the OS level — macOS, Windows, iOS, Android all have dark mode switches. Adding a per-site toggle means:
+Most sites ship a theme toggle and call it done. But there are three separate problems hiding in "dark mode support":
 
-- Managing `localStorage` to persist their choice
-- Dealing with flash-of-wrong-theme on page load
-- A button in my nav that almost nobody clicks
+1. **Initial paint** — the page needs to know the theme before the first pixel renders
+2. **Reactive switching** — when the user changes the theme in your UI, the app needs to respond
+3. **System preference changes** — when someone toggles dark mode at the OS level while your site is open
 
-For a portfolio site, it's unnecessary complexity. So I ripped it out.
+Each one needs a different solution. Here's how I handled all three.
 
-## The Base Layout Setup
+## 1. Flash Prevention: The Inline Script
 
-The key is an inline script in `<head>` that runs before paint. Here's what my `BaseLayout.astro` looks like:
+This runs in `<head>` before the browser paints anything. It's the most critical piece — without it, dark mode users get a white flash on every page load.
+
+```html
+<script>
+  (() => {
+    try {
+      const theme = localStorage.getItem("theme") || "system";
+      const resolved = theme === "system"
+        ? window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light"
+        : theme;
+      const root = document.documentElement;
+      root.classList.toggle("dark", resolved === "dark");
+      root.style.background = resolved === "dark" ? "#000" : "#fff";
+    } catch {}
+  })();
+</script>
+```
+
+A few decisions worth explaining:
+
+- **`localStorage.getItem("theme") || "system"`** — three possible states: `"dark"`, `"light"`, or `"system"`. Default is system, meaning the OS decides.
+- **`root.style.background`** — setting the background color directly on the root element catches the very first frame. CSS classes can't beat an inline style for speed here.
+- **`try/catch`** — `localStorage` can throw in private browsing or restricted contexts. Silent failure is fine — the page just falls back to the default.
+- **IIFE** — keeps variables out of global scope. Small thing, but good hygiene.
+
+In Astro, this goes in your base layout with `is:inline` so it doesn't get bundled and deferred:
 
 ```astro
----
-import { SITE } from "../consts";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import "../styles/global.css";
-
-interface Props {
-  title?: string;
-  description?: string;
-  ogImage?: string;
-}
-
-const {
-  title = SITE.title,
-  description = SITE.description,
-  ogImage = "/og.png",
-} = Astro.props;
-
-const pageTitle = title === SITE.title
-  ? title
-  : `${title} — ${SITE.title}`;
----
-
-<!doctype html>
-<html lang="en" class="dark">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{pageTitle}</title>
-
-    <!-- Theme init — runs before paint to prevent flash -->
-    <script is:inline>
-      document.documentElement.classList.toggle(
-        "dark",
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-      );
-    </script>
-  </head>
-  <body class="min-h-screen flex flex-col">
-    <Header />
-    <main class="flex-1">
-      <slot />
-    </main>
-    <Footer />
-  </body>
-</html>
+<head>
+  <!-- Theme init — runs before paint -->
+  <script is:inline>
+    (() => {
+      try {
+        const theme = localStorage.getItem("theme") || "system";
+        const resolved = theme === "system"
+          ? window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light"
+          : theme;
+        const root = document.documentElement;
+        root.classList.toggle("dark", resolved === "dark");
+        root.style.background = resolved === "dark" ? "#000" : "#fff";
+      } catch {}
+    })();
+  </script>
+</head>
 ```
 
-A few things worth noting:
+## 2. Reactive Theme Switching: useEffect
 
-- **`is:inline`** is critical. Astro normally bundles and defers scripts, but theme detection has to block render. Without `is:inline`, you get a flash of the wrong theme on every page load.
-- **`class="dark"` on `<html>`** is the default. The script immediately removes it if the user prefers light mode. This means dark mode users never see a flash — and they're the ones who notice it most.
-- **No `localStorage`**. The OS is the source of truth. Period.
-
-## Handling Live Theme Changes
-
-What if someone switches their system theme while your site is open? The initial script only runs once. You need a `matchMedia` listener for live updates:
+When the user changes the theme through your UI (or you want to support it later), you need the DOM to react. This is where React comes in:
 
 ```typescript
-// theme-listener.ts
-const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+useEffect(() => {
+  const root = window.document.documentElement;
 
-function applyTheme(e: MediaQueryList | MediaQueryListEvent) {
-  document.documentElement.classList.toggle("dark", e.matches);
-}
+  root.classList.remove("light", "dark");
+  root.style.background = "";
 
-// Apply on load
-applyTheme(mediaQuery);
+  if (theme === "system") {
+    const systemTheme = prefersDarkMode() ? "dark" : "light";
+    root.classList.add(systemTheme);
+    return;
+  }
 
-// Listen for changes
-mediaQuery.addEventListener("change", applyTheme);
+  root.classList.add(theme);
+}, [theme]);
 ```
 
-I keep this as a regular Astro script (not `is:inline`) since it's not blocking-critical — the inline script in `<head>` already handles the initial render. This one just keeps things in sync after that.
+What's happening:
+
+- **Strip both classes first** — clean slate on every change. No stale state.
+- **Clear inline background** — the inline script set `root.style.background` for the initial paint. Once React hydrates, CSS takes over, so clear it out.
+- **Resolve `"system"` at runtime** — if the user picked "system", check `matchMedia` right now and apply the result.
+- **`[theme]` dependency** — only re-runs when the theme state actually changes.
+
+The `prefersDarkMode` helper is simple:
+
+```typescript
+const prefersDarkMode = () =>
+  window.matchMedia("(prefers-color-scheme: dark)").matches;
+```
+
+## 3. Live System Changes: matchMedia Listener
+
+If someone switches their OS from light to dark while your site is open, you want to catch it:
+
+```typescript
+useEffect(() => {
+  const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+  const handleChange = () =>
+    setTheme(prefersDarkMode() ? "dark" : "light");
+  darkThemeMq.addEventListener("change", handleChange);
+  return () => darkThemeMq.removeEventListener("change", handleChange);
+}, []);
+```
+
+This is a separate effect with an empty dependency array — it mounts once and cleans up on unmount. The `change` event fires whenever the OS-level preference flips, and it updates your React state, which triggers the first `useEffect` to apply the new class.
 
 ## Shiki Dual-Theme Syntax Highlighting
 
-This is the part that tripped me up. Astro uses [Shiki](https://shiki.style/) for syntax highlighting, and it supports dual themes out of the box in `astro.config.mjs`:
+Code blocks need to respect the theme too. Astro's Shiki integration supports dual themes:
 
 ```typescript
+// astro.config.mjs
 export default defineConfig({
   markdown: {
     shikiConfig: {
@@ -118,13 +143,9 @@ export default defineConfig({
 });
 ```
 
-Shiki generates inline styles for the light theme directly on each `<span>`, and stashes the dark theme values as CSS custom properties (`--shiki-dark`). The catch is **you need CSS to actually swap them** in dark mode. Shiki doesn't do this for you.
-
-Here's the CSS that makes it work:
+Shiki sets light theme colors as inline styles and stashes dark values as CSS custom properties (`--shiki-dark`). You need CSS to swap them:
 
 ```css
-/* Light theme: Shiki sets inline color/background — nothing to do */
-
 /* Dark theme: swap to Shiki's CSS custom properties */
 html.dark .astro-code {
   color: var(--shiki-dark) !important;
@@ -137,23 +158,16 @@ html.dark .astro-code span {
 }
 ```
 
-The `!important` flags aren't great in general, but they're necessary here to override Shiki's inline styles. The `background-color: transparent` on spans prevents each token from getting its own background box in dark mode.
+The `!important` flags override Shiki's inline styles. The `transparent` background on spans prevents each token from getting its own background box.
 
-## Tailwind Typography + Code Blocks
+## Tailwind Typography Gotcha
 
-If you're using `@tailwindcss/typography` (and you should be for blog posts), there's a conflict with code blocks. The prose styles add `background`, `padding`, and `border-radius` to all `<code>` elements — including the ones inside `<pre>` blocks that Shiki is already styling.
-
-The fix is scoping your inline code styles to exclude code inside `pre`:
+If you're using `@tailwindcss/typography` for blog content, its prose styles will try to style `<code>` elements inside `<pre>` blocks — adding backgrounds, padding, and border-radius that conflict with Shiki. Scope your inline code styles to exclude code inside `pre`:
 
 ```css
-/* Inline code — not inside pre blocks */
+/* Inline code only — not inside pre blocks */
 .prose :where(code):not(:where(pre *, [class~="not-prose"], [class~="not-prose"] *)) {
   @apply bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm;
-}
-
-/* Code blocks — subtle background differentiation */
-.prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 rounded-lg;
 }
 
 /* Reset code inside pre — let Shiki own it */
@@ -165,24 +179,14 @@ The fix is scoping your inline code styles to exclude code inside `pre`:
 }
 ```
 
-Without that `:not(:where(pre *, ...))` selector, every syntax-highlighted token gets wrapped in a gray box. Not the look.
+## The Full Picture
 
-## What I Removed
+Three layers, each solving a different timing problem:
 
-The old `ThemeToggle.astro` component was about 40 lines — a button with two SVG icons, `localStorage` read/write, a click handler, and a system preference listener that was fighting with the manual override. Replaced all of it with:
+| Layer | When | What |
+|-------|------|------|
+| Inline `<script>` | Before first paint | Prevents flash, sets initial theme |
+| `useEffect([theme])` | On theme state change | Applies class, clears inline styles |
+| `useEffect([])` | On mount | Listens for OS-level theme changes |
 
-- 3 lines of inline JS in the layout
-- A `matchMedia` change listener
-- Some CSS for Shiki theming
-
-Less code, better UX, respects the user's actual preference.
-
-## When You Might Still Want a Toggle
-
-I'll be honest — there are valid cases:
-
-- **Reading-heavy apps** where users want per-app control independent of their OS
-- **Accessibility needs** where someone runs light mode OS-wide but prefers dark for specific sites
-- **Apps where users spend hours** and the OS preference might not match the context
-
-For a portfolio though? Let the OS handle it. Ship less JavaScript. Move on.
+The inline script is the foundation. The React effects handle everything after hydration. Together they cover every edge case I've hit — initial load, manual switching, and live system changes.
