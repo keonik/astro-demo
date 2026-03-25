@@ -10,6 +10,8 @@ tags:
   - postgresql
   - tailwindcss
   - tanstack-router
+  - playwright
+  - openai
 date: 2025-06-01
 draft: false
 ---
