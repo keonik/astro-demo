@@ -1,7 +1,7 @@
 ---
 title: "Transcriber I Hardly Knew Her"
 summary: "Privacy-first, offline-first audio transcription app. Record and transcribe locally in the browser using Whisper.cpp — no audio leaves your device."
-repoUrl: https://github.com/offbyone-ai/transcriber-i-hardly-knew-her
+demoUrl: https://transcriberihardlyknewher.com
 tags:
   - react
   - typescript
