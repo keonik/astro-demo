@@ -59,12 +59,38 @@
   @apply text-accent dark:text-accent-dark underline decoration-accent/30 hover:decoration-accent transition-colors;
 }
 
-.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+/* Inline code only (not inside pre blocks) */
+.prose :where(code):not(:where(pre *, [class~="not-prose"], [class~="not-prose"] *)) {
   @apply bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm;
 }
 
 .prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800;
+}
+
+/* Reset code inside pre — let Shiki handle styling */
+.prose :where(pre code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+/* Shiki dual-theme support */
+.astro-code,
+.astro-code span {
+  color: var(--shiki-light) !important;
+  background-color: var(--shiki-light-bg) !important;
+}
+
+html.dark .astro-code,
+html.dark .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+html.dark .astro-code span {
+  background-color: transparent !important;
 }
 
 .prose :where(blockquote):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
