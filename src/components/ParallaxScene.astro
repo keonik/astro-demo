@@ -1,0 +1,225 @@
+---
+---
+<div id="parallax-scene" class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+  <!-- Sky gradient -->
+  <div id="sky-layer" class="absolute inset-0 transition-colors duration-500">
+    <div class="sky-light absolute inset-0 bg-gradient-to-b from-blue-200 via-sky-100 to-amber-50 dark:hidden"></div>
+    <div class="sky-dark absolute inset-0 hidden dark:block bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-800"></div>
+    <!-- Stars (dark mode only) -->
+    <svg class="absolute inset-0 w-full h-full hidden dark:block opacity-60" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="10%" cy="8%" r="1" fill="white" opacity="0.8"/>
+      <circle cx="25%" cy="12%" r="1.5" fill="white" opacity="0.6"/>
+      <circle cx="45%" cy="5%" r="1" fill="white" opacity="0.9"/>
+      <circle cx="60%" cy="15%" r="1.2" fill="white" opacity="0.5"/>
+      <circle cx="75%" cy="7%" r="1" fill="white" opacity="0.7"/>
+      <circle cx="85%" cy="18%" r="1.5" fill="white" opacity="0.4"/>
+      <circle cx="15%" cy="22%" r="1" fill="white" opacity="0.6"/>
+      <circle cx="90%" cy="10%" r="1" fill="white" opacity="0.8"/>
+      <circle cx="35%" cy="3%" r="1.3" fill="white" opacity="0.5"/>
+      <circle cx="55%" cy="20%" r="1" fill="white" opacity="0.7"/>
+    </svg>
+    <!-- Sun/Moon -->
+    <div class="absolute top-[8%] right-[15%] w-16 h-16 rounded-full bg-amber-200 dark:bg-gray-200 opacity-80 dark:opacity-60 blur-sm"></div>
+  </div>
+
+  <!-- Far mountains - slowest parallax -->
+  <svg id="mountains-far" class="absolute bottom-0 left-0 w-full" style="height: 60vh;" viewBox="0 0 1440 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 400 L0 280 Q120 180 240 220 Q360 140 480 200 Q600 120 720 180 Q840 100 960 160 Q1080 90 1200 150 Q1320 110 1440 180 L1440 400Z" 
+      class="fill-blue-300/40 dark:fill-indigo-900/50"/>
+  </svg>
+
+  <!-- Near hills - medium parallax -->
+  <svg id="hills-near" class="absolute bottom-0 left-0 w-full" style="height: 50vh;" viewBox="0 0 1440 350" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 350 L0 220 Q100 160 200 200 Q350 120 500 180 Q650 100 800 170 Q950 130 1100 190 Q1250 140 1440 200 L1440 350Z" 
+      class="fill-emerald-400/30 dark:fill-emerald-900/40"/>
+    <!-- Trees on the hills -->
+    <g class="fill-emerald-600/50 dark:fill-emerald-800/60">
+      <!-- Left cluster -->
+      <path d="M80 200 L90 160 L100 200Z"/>
+      <path d="M95 205 L105 155 L115 205Z"/>
+      <path d="M70 210 L82 165 L94 210Z"/>
+      <!-- Middle cluster -->
+      <path d="M680 175 L690 135 L700 175Z"/>
+      <path d="M695 178 L707 130 L719 178Z"/>
+      <path d="M710 180 L720 140 L730 180Z"/>
+      <!-- Right cluster -->
+      <path d="M1200 195 L1210 150 L1220 195Z"/>
+      <path d="M1215 198 L1228 145 L1241 198Z"/>
+      <path d="M1185 200 L1195 158 L1205 200Z"/>
+    </g>
+  </svg>
+
+  <!-- Ground layer with house - fastest parallax -->
+  <svg id="ground-layer" class="absolute bottom-0 left-0 w-full" style="height: 45vh;" viewBox="0 0 1440 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Ground -->
+    <path d="M0 300 L0 180 Q200 140 400 170 Q700 120 1000 160 Q1200 140 1440 170 L1440 300Z" 
+      class="fill-green-400/25 dark:fill-green-900/30"/>
+    <path d="M0 300 L0 230 Q300 200 600 220 Q900 200 1200 215 Q1350 210 1440 220 L1440 300Z" 
+      class="fill-green-500/20 dark:fill-green-950/40"/>
+  </svg>
+
+  <!-- House on the right side -->
+  <div id="house-layer" class="absolute right-[5%] lg:right-[8%]" style="bottom: -200px; transition: transform 0.1s ease-out;">
+    <svg width="280" height="250" viewBox="0 0 280 250" xmlns="http://www.w3.org/2000/svg" class="drop-shadow-lg">
+      <!-- House body -->
+      <rect x="40" y="100" width="200" height="130" rx="4" class="fill-amber-100 dark:fill-amber-900/80 stroke-amber-300 dark:stroke-amber-700" stroke-width="2"/>
+      
+      <!-- Roof -->
+      <path d="M20 105 L140 30 L260 105Z" class="fill-red-400 dark:fill-red-800 stroke-red-500 dark:stroke-red-700" stroke-width="2"/>
+      <path d="M20 105 L140 30 L260 105" fill="none" class="stroke-red-600 dark:stroke-red-900" stroke-width="1" opacity="0.3"/>
+      
+      <!-- Chimney -->
+      <rect x="190" y="45" width="25" height="45" rx="2" class="fill-gray-400 dark:fill-gray-600"/>
+      <!-- Chimney smoke (animated) -->
+      <g class="chimney-smoke" opacity="0.4">
+        <circle cx="202" cy="35" r="6" class="fill-gray-300 dark:fill-gray-500"/>
+        <circle cx="208" cy="22" r="8" class="fill-gray-300 dark:fill-gray-500"/>
+        <circle cx="200" cy="10" r="5" class="fill-gray-300 dark:fill-gray-500"/>
+      </g>
+      
+      <!-- Window (left) - decorative -->
+      <rect x="60" y="125" width="45" height="40" rx="2" class="fill-sky-200 dark:fill-sky-900/60 stroke-amber-400 dark:stroke-amber-600" stroke-width="2"/>
+      <line x1="82.5" y1="125" x2="82.5" y2="165" class="stroke-amber-400 dark:stroke-amber-600" stroke-width="1.5"/>
+      <line x1="60" y1="145" x2="105" y2="145" class="stroke-amber-400 dark:stroke-amber-600" stroke-width="1.5"/>
+      <!-- Curtains -->
+      <path d="M62 127 Q72 135 62 145" class="fill-rose-200/60 dark:fill-rose-900/40" />
+      <path d="M103 127 Q93 135 103 145" class="fill-rose-200/60 dark:fill-rose-900/40" />
+      
+      <!-- Window (right) - person at desk! -->
+      <rect x="130" y="125" width="55" height="50" rx="2" class="fill-amber-200 dark:fill-amber-400/30 stroke-amber-400 dark:stroke-amber-600" stroke-width="2"/>
+      <!-- Window glow -->
+      <rect x="132" y="127" width="51" height="46" rx="1" class="fill-amber-100/80 dark:fill-amber-300/20"/>
+      <!-- Window divider -->
+      <line x1="157.5" y1="125" x2="157.5" y2="175" class="stroke-amber-400 dark:stroke-amber-600" stroke-width="1.5"/>
+      <line x1="130" y1="150" x2="185" y2="150" class="stroke-amber-400 dark:stroke-amber-600" stroke-width="1.5"/>
+      
+      <!-- Person silhouette at desk -->
+      <g class="fill-gray-600 dark:fill-gray-300" opacity="0.7">
+        <!-- Head -->
+        <circle cx="155" cy="139" r="5"/>
+        <!-- Body/shoulders -->
+        <path d="M148 144 Q155 148 162 144 L162 155 L148 155Z"/>
+        <!-- Desk -->
+        <rect x="140" y="155" width="35" height="3" rx="1" class="fill-amber-700 dark:fill-amber-500" opacity="0.6"/>
+        <!-- Monitor on desk -->
+        <rect x="160" y="147" width="10" height="8" rx="1" class="fill-blue-400 dark:fill-blue-300" opacity="0.5"/>
+        <rect x="163" y="155" width="4" height="2" class="fill-gray-500 dark:fill-gray-400" opacity="0.5"/>
+      </g>
+      
+      <!-- Door -->
+      <rect x="200" y="165" width="30" height="55" rx="3" class="fill-amber-700 dark:fill-amber-800 stroke-amber-800 dark:stroke-amber-900" stroke-width="1.5"/>
+      <circle cx="224" cy="195" r="2.5" class="fill-amber-400 dark:fill-amber-500"/>
+      
+      <!-- Door step -->
+      <rect x="195" y="220" width="40" height="8" rx="2" class="fill-gray-300 dark:fill-gray-600"/>
+      
+      <!-- Flower box under left window -->
+      <rect x="58" y="167" width="49" height="10" rx="2" class="fill-amber-600 dark:fill-amber-700"/>
+      <circle cx="67" cy="164" r="4" class="fill-pink-400 dark:fill-pink-600"/>
+      <circle cx="80" cy="163" r="3.5" class="fill-red-400 dark:fill-red-600"/>
+      <circle cx="93" cy="164" r="4" class="fill-pink-300 dark:fill-pink-500"/>
+      <line x1="67" y1="167" x2="67" y2="172" class="stroke-green-600 dark:stroke-green-700" stroke-width="1"/>
+      <line x1="80" y1="167" x2="80" y2="172" class="stroke-green-600 dark:stroke-green-700" stroke-width="1"/>
+      <line x1="93" y1="167" x2="93" y2="172" class="stroke-green-600 dark:stroke-green-700" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <!-- House on the left side (smaller, further back) -->
+  <div id="house-far" class="absolute left-[3%] lg:left-[6%] hidden lg:block" style="bottom: -150px; transition: transform 0.1s ease-out;">
+    <svg width="140" height="130" viewBox="0 0 280 250" xmlns="http://www.w3.org/2000/svg" class="opacity-50 dark:opacity-40">
+      <rect x="40" y="100" width="200" height="130" rx="4" class="fill-amber-100 dark:fill-amber-900/60"/>
+      <path d="M20 105 L140 30 L260 105Z" class="fill-red-300 dark:fill-red-900"/>
+      <rect x="70" y="130" width="40" height="35" rx="2" class="fill-sky-200 dark:fill-sky-900/40 stroke-amber-300 dark:stroke-amber-700" stroke-width="2"/>
+      <rect x="170" y="130" width="40" height="35" rx="2" class="fill-sky-200 dark:fill-sky-900/40 stroke-amber-300 dark:stroke-amber-700" stroke-width="2"/>
+      <rect x="120" y="170" width="30" height="50" rx="3" class="fill-amber-700 dark:fill-amber-800"/>
+    </svg>
+  </div>
+</div>
+
+<style>
+  @keyframes smoke-drift {
+    0% { transform: translateY(0) translateX(0); opacity: 0.4; }
+    50% { transform: translateY(-8px) translateX(4px); opacity: 0.2; }
+    100% { transform: translateY(-16px) translateX(-2px); opacity: 0; }
+  }
+
+  .chimney-smoke {
+    animation: smoke-drift 3s ease-in-out infinite;
+  }
+</style>
+
+<script>
+  function initParallax() {
+    const mountainsFar = document.getElementById("mountains-far");
+    const hillsNear = document.getElementById("hills-near");
+    const groundLayer = document.getElementById("ground-layer");
+    const houseLayer = document.getElementById("house-layer");
+    const houseFar = document.getElementById("house-far");
+    const skyLayer = document.getElementById("sky-layer");
+
+    if (!mountainsFar || !houseLayer) return;
+
+    let ticking = false;
+
+    function updateParallax() {
+      const scrollY = window.scrollY;
+      const vh = window.innerHeight;
+      const scrollPercent = Math.min(scrollY / (vh * 2), 1);
+
+      // Sky shifts slightly
+      if (skyLayer) {
+        skyLayer.style.transform = `translateY(${scrollY * 0.05}px)`;
+      }
+
+      // Mountains move slow
+      mountainsFar.style.transform = `translateY(${scrollY * -0.1}px)`;
+
+      // Hills move medium
+      if (hillsNear) {
+        hillsNear.style.transform = `translateY(${scrollY * -0.2}px)`;
+      }
+
+      // Ground moves faster
+      if (groundLayer) {
+        groundLayer.style.transform = `translateY(${scrollY * -0.25}px)`;
+      }
+
+      // House rises into view as you scroll
+      const houseReveal = Math.min(scrollY / (vh * 0.6), 1);
+      const houseY = 200 - (houseReveal * 280);
+      houseLayer.style.bottom = `${houseY}px`;
+      houseLayer.style.transform = `translateY(${scrollY * -0.3}px)`;
+
+      // Far house (left) - slightly different timing
+      if (houseFar) {
+        const farReveal = Math.min(scrollY / (vh * 0.8), 1);
+        const farY = 150 - (farReveal * 200);
+        houseFar.style.bottom = `${farY}px`;
+        houseFar.style.transform = `translateY(${scrollY * -0.15}px)`;
+      }
+
+      ticking = false;
+    }
+
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    });
+
+    // Initial position
+    updateParallax();
+  }
+
+  // Only on desktop
+  if (window.matchMedia("(min-width: 768px)").matches) {
+    initParallax();
+  }
+
+  document.addEventListener("astro:after-swap", () => {
+    if (window.matchMedia("(min-width: 768px)").matches) {
+      initParallax();
+    }
+  });
+</script>
