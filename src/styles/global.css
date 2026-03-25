@@ -65,7 +65,15 @@
 }
 
 .prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800;
+  @apply bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 rounded-lg;
+}
+
+.prose .astro-code {
+  background-color: #f8f9fa !important;
+}
+
+html.dark .prose .astro-code {
+  background-color: rgba(17, 24, 39, 0.5) !important;
 }
 
 /* Reset code inside pre — let Shiki handle styling */
