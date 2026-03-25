@@ -44,9 +44,19 @@ const pageTitle = title === SITE.title ? title : `${title} — ${SITE.title}`;
 
     <title>{pageTitle}</title>
 
-    <!-- Theme init (follows system preference) -->
+    <!-- Theme init — runs before paint to prevent flash -->
     <script is:inline>
-      document.documentElement.classList.toggle("dark", window.matchMedia("(prefers-color-scheme: dark)").matches);
+      (() => {
+        try {
+          const theme = localStorage.getItem("theme") || "system";
+          const resolved = theme === "system"
+            ? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+            : theme;
+          const root = document.documentElement;
+          root.classList.toggle("dark", resolved === "dark");
+          root.style.background = resolved === "dark" ? "#000" : "#fff";
+        } catch {}
+      })();
     </script>
   </head>
   <body class="min-h-screen flex flex-col">
