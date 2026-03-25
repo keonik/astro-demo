@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+
+const work = (await getCollection("work")).sort((a, b) => {
+  const parseDate = (d: string) => {
+    if (d === "now") return new Date();
+    const [month, day, year] = d.split("/");
+    return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+  };
+  return parseDate(b.data.dateStart).getTime() - parseDate(a.data.dateStart).getTime();
+});
+
+const rendered = await Promise.all(
+  work.map(async (w) => {
+    const { Content } = await render(w);
+    return { ...w, Content };
+  })
+);
+
+function formatWorkDate(d: string): string {
+  if (d === "now") return "Present";
+  const [month, , year] = d.split("/");
+  const date = new Date(parseInt(year), parseInt(month) - 1);
+  return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+}
+---
+
+<BaseLayout title="Work" description="My professional experience.">
+  <div class="max-w-3xl mx-auto px-6 py-20">
+    <header class="mb-12 animate-fade-in-up flex items-center justify-between">
+      <div>
+        <h1 class="text-3xl font-bold tracking-tight">Work</h1>
+        <p class="text-gray-500 dark:text-gray-400 mt-2">
+          My professional journey.
+        </p>
+      </div>
+      <button
+        onclick="window.print()"
+        class="no-print text-sm px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
+      >
+        Save as PDF
+      </button>
+    </header>
+
+    <div class="space-y-0 animate-fade-in-up animate-delay-100">
+      {rendered.map((entry, i) => (
+        <div class="relative pl-8 pb-10 last:pb-0">
+          {/* Timeline line */}
+          {i < rendered.length - 1 && (
+            <div class="absolute left-[11px] top-[28px] bottom-0 w-px bg-gray-200 dark:bg-gray-800" />
+          )}
+          {/* Timeline dot */}
+          <div class="absolute left-0 top-[10px] w-[23px] h-[23px] rounded-full border-2 border-accent dark:border-accent-dark bg-white dark:bg-gray-950 flex items-center justify-center">
+            <div class="w-2 h-2 rounded-full bg-accent dark:bg-accent-dark" />
+          </div>
+
+          <div>
+            <div class="flex items-baseline justify-between gap-4 flex-wrap">
+              <h2 class="font-semibold text-lg">{entry.data.company}</h2>
+              <span class="text-sm text-gray-400">
+                {formatWorkDate(entry.data.dateStart)} — {formatWorkDate(entry.data.dateEnd)}
+              </span>
+            </div>
+            <p class="text-sm text-accent dark:text-accent-dark mt-0.5">{entry.data.role}</p>
+            <div class="prose prose-sm mt-3 text-gray-600 dark:text-gray-400">
+              <entry.Content />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
