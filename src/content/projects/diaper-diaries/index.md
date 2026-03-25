@@ -1,6 +1,6 @@
 ---
 title: "Diaper Diaries"
-summary: "A mobile app for tracking diaper changes and baby care — built with Expo and React Native."
+summary: "A mobile app that helps parents track and teach their newborns' pee and poo patterns — built with Expo and React Native."
 repoUrl: https://github.com/keonik/diaper-diaries
 tags:
   - react-native
@@ -10,4 +10,4 @@ date: 2025-08-23
 draft: false
 ---
 
-A mobile baby care tracker built with Expo and React Native. Because when you're sleep deprived, you need an app to remember the last diaper change.
+A mobile app built with Expo and React Native that helps parents track and teach their newborns' pee and poo patterns. Turning parenthood's messiest job into data.
