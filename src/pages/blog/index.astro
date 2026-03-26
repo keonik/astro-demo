@@ -1,31 +1,47 @@
 ---
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import PageLayout from "@layouts/PageLayout.astro";
-import TopLayout from "@layouts/TopLayout.astro";
-import BottomLayout from "@layouts/BottomLayout.astro";
-import Blog from "@components/Blog";
-import { BLOG } from "@consts";
+import { formatDate, sortByDate } from "../../lib/utils";
 
-const posts = (await getCollection("blog"))
-	.filter((post) => !post.data.draft)
-	.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-
-const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort(
-	(a, b) => a.localeCompare(b),
+const posts = sortByDate(
+  (await getCollection("blog")).filter((p) => !p.data.draft)
 );
 ---
 
-<PageLayout title={BLOG.TITLE} description={BLOG.DESCRIPTION}>
-  <TopLayout>
-    <div class="animate page-heading">
-      {BLOG.TITLE}
-    </div>
-  </TopLayout>
-  <BottomLayout>
-    <div class="animate">
-      <Blog client:load tags={tags} data={posts} />
-    </div>
-  </BottomLayout>
-</PageLayout>
+<BaseLayout title="Blog" description="Writing on topics I'm passionate about.">
+  <div class="max-w-3xl mx-auto px-6 py-20">
+    <header class="mb-12 animate-fade-in-up">
+      <h1 class="text-3xl font-bold tracking-tight">Blog</h1>
+      <p class="text-gray-500 dark:text-gray-400 mt-2">
+        Writing on topics I'm passionate about.
+      </p>
+    </header>
 
-
+    <div class="space-y-2 animate-fade-in-up animate-delay-100">
+      {posts.map((post) => (
+        <a href={`/blog/${post.id}`} class="block group">
+          <article class="p-4 -mx-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors">
+            <div class="flex items-baseline justify-between gap-4 flex-wrap">
+              <h2 class="font-medium group-hover:text-accent dark:group-hover:text-accent-dark transition-colors">
+                {post.data.title}
+              </h2>
+              <time class="text-sm text-gray-400 shrink-0" datetime={post.data.date.toISOString()}>
+                {formatDate(post.data.date)}
+              </time>
+            </div>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              {post.data.summary}
+            </p>
+            <div class="flex gap-2 mt-2">
+              {post.data.tags.slice(0, 4).map((tag) => (
+                <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </article>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

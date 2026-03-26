@@ -1,0 +1,326 @@
+---
+---
+<div id="parallax-scene" class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+  <!-- Sky gradient -->
+  <div id="sky-layer" class="absolute inset-0">
+    <!-- Light mode sky -->
+    <div class="absolute inset-0 dark:hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-sky-300 via-sky-200 via-60% to-amber-100"></div>
+      <!-- Clouds -->
+      <svg class="absolute top-[10%] left-[5%] w-48 opacity-50" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="70" cy="50" rx="60" ry="25" fill="white"/>
+        <ellipse cx="110" cy="45" rx="45" ry="20" fill="white"/>
+        <ellipse cx="50" cy="45" rx="35" ry="18" fill="white"/>
+        <ellipse cx="90" cy="35" rx="40" ry="22" fill="white"/>
+      </svg>
+      <svg class="absolute top-[6%] right-[20%] w-36 opacity-40" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="80" cy="50" rx="50" ry="20" fill="white"/>
+        <ellipse cx="120" cy="45" rx="40" ry="18" fill="white"/>
+        <ellipse cx="95" cy="38" rx="35" ry="20" fill="white"/>
+      </svg>
+      <!-- Sun -->
+      <div class="absolute top-[8%] right-[12%] w-20 h-20 rounded-full bg-amber-200/90 blur-[2px]"></div>
+      <div class="absolute top-[9%] right-[12.5%] w-16 h-16 rounded-full bg-amber-100"></div>
+    </div>
+    <!-- Dark mode sky -->
+    <div class="absolute inset-0 hidden dark:block">
+      <div class="absolute inset-0 bg-gradient-to-b from-slate-950 via-indigo-950 via-40% to-slate-900"></div>
+      <!-- Stars -->
+      <svg class="absolute inset-0 w-full h-full opacity-70" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="5%" cy="6%" r="1.2" fill="white" opacity="0.9"><animate attributeName="opacity" values="0.9;0.4;0.9" dur="3s" repeatCount="indefinite"/></circle>
+        <circle cx="12%" cy="18%" r="0.8" fill="white" opacity="0.6"/>
+        <circle cx="20%" cy="8%" r="1.5" fill="white" opacity="0.7"><animate attributeName="opacity" values="0.7;0.3;0.7" dur="4s" repeatCount="indefinite"/></circle>
+        <circle cx="28%" cy="22%" r="0.7" fill="white" opacity="0.5"/>
+        <circle cx="35%" cy="4%" r="1.3" fill="white" opacity="0.8"><animate attributeName="opacity" values="0.8;0.4;0.8" dur="5s" repeatCount="indefinite"/></circle>
+        <circle cx="42%" cy="14%" r="0.9" fill="white" opacity="0.6"/>
+        <circle cx="50%" cy="7%" r="1.1" fill="white" opacity="0.7"/>
+        <circle cx="58%" cy="20%" r="0.8" fill="white" opacity="0.5"><animate attributeName="opacity" values="0.5;0.2;0.5" dur="3.5s" repeatCount="indefinite"/></circle>
+        <circle cx="65%" cy="3%" r="1.4" fill="white" opacity="0.8"/>
+        <circle cx="72%" cy="16%" r="0.7" fill="white" opacity="0.4"/>
+        <circle cx="78%" cy="9%" r="1.0" fill="white" opacity="0.6"><animate attributeName="opacity" values="0.6;0.2;0.6" dur="4.5s" repeatCount="indefinite"/></circle>
+        <circle cx="85%" cy="25%" r="0.9" fill="white" opacity="0.5"/>
+        <circle cx="92%" cy="6%" r="1.2" fill="white" opacity="0.7"/>
+        <circle cx="95%" cy="19%" r="0.6" fill="white" opacity="0.4"/>
+        <circle cx="8%" cy="30%" r="0.8" fill="white" opacity="0.3"/>
+        <circle cx="48%" cy="28%" r="0.7" fill="white" opacity="0.4"/>
+        <circle cx="88%" cy="32%" r="1.0" fill="white" opacity="0.35"/>
+      </svg>
+      <!-- Moon with glow -->
+      <div class="absolute top-[6%] right-[12%] w-28 h-28 rounded-full bg-blue-200/10 blur-xl"></div>
+      <div class="absolute top-[7.5%] right-[13%] w-20 h-20 rounded-full bg-gray-100/15 blur-md"></div>
+      <div class="absolute top-[8.5%] right-[13.5%] w-14 h-14 rounded-full bg-gray-200/80"></div>
+      <div class="absolute top-[9.5%] right-[14.5%] w-2 h-2 rounded-full bg-gray-300/40"></div>
+      <div class="absolute top-[10.5%] right-[13.8%] w-1.5 h-1.5 rounded-full bg-gray-300/30"></div>
+    </div>
+  </div>
+
+  <!-- Far mountains - slowest parallax -->
+  <div id="mountains-far" class="absolute bottom-0 left-0 w-full" style="height: 65vh;">
+    <svg class="absolute bottom-0 w-full h-full" viewBox="0 0 1440 450" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 450 L0 300 Q60 240 140 270 Q220 200 320 250 Q420 170 520 230 Q600 160 700 210 Q780 140 880 200 Q960 130 1060 190 Q1140 120 1240 180 Q1320 150 1440 210 L1440 450Z"
+        class="fill-blue-400/30 dark:fill-indigo-900/60"/>
+      <path d="M0 450 L0 320 Q100 260 200 290 Q340 220 460 270 Q580 200 700 250 Q820 180 940 230 Q1060 170 1180 220 Q1300 190 1440 240 L1440 450Z"
+        class="fill-blue-400/20 dark:fill-indigo-800/40"/>
+    </svg>
+  </div>
+
+  <!-- Near hills with trees - medium parallax -->
+  <div id="hills-near" class="absolute bottom-0 left-0 w-full" style="height: 55vh;">
+    <svg class="absolute bottom-0 w-full h-full" viewBox="0 0 1440 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Hill shape -->
+      <path d="M0 400 L0 260 Q80 200 180 240 Q300 160 440 220 Q560 150 680 210 Q800 160 920 200 Q1040 150 1160 210 Q1280 180 1440 230 L1440 400Z"
+        class="fill-emerald-500/25 dark:fill-emerald-900/45"/>
+
+      <!-- Trees -->
+      <g class="fill-emerald-700/50 dark:fill-emerald-800/70">
+        <!-- Left forest -->
+        <path d="M60 248 L72 200 L84 248Z"/>
+        <path d="M75 252 L90 190 L105 252Z"/>
+        <path d="M45 255 L58 210 L71 255Z"/>
+        <path d="M95 250 L105 215 L115 250Z"/>
+        <ellipse cx="130" cy="238" rx="14" ry="18" class="fill-emerald-600/45 dark:fill-emerald-700/55"/>
+        <rect x="128" y="248" width="4" height="10" class="fill-amber-800/40 dark:fill-amber-900/50"/>
+
+        <!-- Mid-left -->
+        <path d="M320 225 L335 170 L350 225Z"/>
+        <path d="M340 228 L352 185 L364 228Z"/>
+        <ellipse cx="380" cy="220" rx="12" ry="15" class="fill-emerald-600/45 dark:fill-emerald-700/55"/>
+        <rect x="378" y="230" width="4" height="8" class="fill-amber-800/40 dark:fill-amber-900/50"/>
+
+        <!-- Center -->
+        <path d="M640 215 L655 160 L670 215Z"/>
+        <path d="M660 218 L678 155 L696 218Z"/>
+        <path d="M620 222 L634 175 L648 222Z"/>
+        <path d="M685 220 L696 180 L707 220Z"/>
+        <ellipse cx="715" cy="212" rx="11" ry="14" class="fill-emerald-600/45 dark:fill-emerald-700/55"/>
+        <rect x="713" y="222" width="4" height="8" class="fill-amber-800/40 dark:fill-amber-900/50"/>
+
+        <!-- Right -->
+        <path d="M1050 215 L1063 168 L1076 215Z"/>
+        <path d="M1070 218 L1085 160 L1100 218Z"/>
+        <path d="M1035 220 L1046 178 L1057 220Z"/>
+        <ellipse cx="1110" cy="210" rx="13" ry="16" class="fill-emerald-600/45 dark:fill-emerald-700/55"/>
+        <rect x="1108" y="220" width="4" height="9" class="fill-amber-800/40 dark:fill-amber-900/50"/>
+
+        <!-- Far right -->
+        <path d="M1300 218 L1312 175 L1324 218Z"/>
+        <path d="M1315 220 L1330 168 L1345 220Z"/>
+        <path d="M1280 225 L1292 188 L1304 225Z"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Ground layer - faster parallax -->
+  <div id="ground-layer" class="absolute bottom-0 left-0 w-full" style="height: 48vh;">
+    <svg class="absolute bottom-0 w-full h-full" viewBox="0 0 1440 350" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 350 L0 200 Q150 155 300 185 Q500 130 700 175 Q900 140 1100 170 Q1250 150 1440 185 L1440 350Z"
+        class="fill-green-500/20 dark:fill-green-900/35"/>
+      <path d="M0 350 L0 250 Q200 215 400 240 Q650 210 900 235 Q1100 215 1300 230 Q1380 225 1440 240 L1440 350Z"
+        class="fill-green-600/18 dark:fill-green-950/45"/>
+      <!-- Path hint -->
+      <path d="M600 350 Q620 300 650 270 Q700 240 760 235" fill="none" class="stroke-amber-600/15 dark:stroke-amber-400/10" stroke-width="8" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <!-- Far house (left) -->
+  <div id="house-far" class="absolute left-[4%] lg:left-[7%] bottom-[18%] hidden md:block">
+    <svg width="120" height="110" viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg" class="opacity-55 dark:opacity-45 drop-shadow-sm">
+      <rect x="50" y="100" width="140" height="100" rx="3" class="fill-amber-50 dark:fill-amber-900/70 stroke-amber-200 dark:stroke-amber-800" stroke-width="1.5"/>
+      <path d="M30 104 L120 35 L210 104Z" class="fill-rose-400/80 dark:fill-rose-900/80"/>
+      <path d="M30 104 L120 35 L210 104" fill="none" class="stroke-rose-500/30 dark:stroke-rose-800/30" stroke-width="1"/>
+      <rect x="70" y="120" width="30" height="28" rx="2" class="fill-sky-200/80 dark:fill-amber-300/25 stroke-amber-300 dark:stroke-amber-700" stroke-width="1.5"/>
+      <line x1="85" y1="120" x2="85" y2="148" class="stroke-amber-300 dark:stroke-amber-700" stroke-width="1"/>
+      <rect x="140" y="120" width="30" height="28" rx="2" class="fill-sky-200/80 dark:fill-amber-300/25 stroke-amber-300 dark:stroke-amber-700" stroke-width="1.5"/>
+      <line x1="155" y1="120" x2="155" y2="148" class="stroke-amber-300 dark:stroke-amber-700" stroke-width="1"/>
+      <rect x="105" y="155" width="25" height="40" rx="2" class="fill-amber-700/80 dark:fill-amber-800"/>
+      <circle cx="125" cy="178" r="2" class="fill-amber-400"/>
+      <rect x="155" y="50" width="18" height="40" rx="1" class="fill-gray-400/80 dark:fill-gray-600/80"/>
+    </svg>
+  </div>
+
+  <!-- Main house (right) - cozy with person at desk -->
+  <div id="house-layer" class="absolute right-[3%] lg:right-[6%] bottom-[10%]">
+    <svg width="300" height="280" viewBox="0 0 300 280" xmlns="http://www.w3.org/2000/svg" class="drop-shadow-lg">
+      <!-- Foundation -->
+      <rect x="30" y="225" width="220" height="12" rx="2" class="fill-gray-400/40 dark:fill-gray-600/40"/>
+
+      <!-- House body -->
+      <rect x="35" y="105" width="210" height="125" rx="4" class="fill-amber-50 dark:fill-amber-900/80 stroke-amber-200 dark:stroke-amber-700" stroke-width="2"/>
+      <line x1="35" y1="130" x2="245" y2="130" class="stroke-amber-200/40 dark:stroke-amber-700/30" stroke-width="0.5"/>
+      <line x1="35" y1="155" x2="245" y2="155" class="stroke-amber-200/40 dark:stroke-amber-700/30" stroke-width="0.5"/>
+      <line x1="35" y1="180" x2="245" y2="180" class="stroke-amber-200/40 dark:stroke-amber-700/30" stroke-width="0.5"/>
+      <line x1="35" y1="205" x2="245" y2="205" class="stroke-amber-200/40 dark:stroke-amber-700/30" stroke-width="0.5"/>
+
+      <!-- Roof -->
+      <path d="M15 110 L140 28 L265 110Z" class="fill-red-500/90 dark:fill-red-800/90"/>
+      <path d="M15 110 L140 28 L265 110" fill="none" class="stroke-red-700/30 dark:stroke-red-950/40" stroke-width="1.5"/>
+      <path d="M12 112 L140 26 L268 112Z" fill="none" class="stroke-red-600/40 dark:stroke-red-700/30" stroke-width="2"/>
+
+      <!-- Chimney -->
+      <rect x="195" y="42" width="26" height="52" rx="2" class="fill-gray-500/80 dark:fill-gray-600/80 stroke-gray-600/30 dark:stroke-gray-500/20" stroke-width="1"/>
+      <rect x="191" y="40" width="34" height="6" rx="1" class="fill-gray-600/70 dark:fill-gray-500/60"/>
+      <!-- Smoke -->
+      <g class="chimney-smoke">
+        <circle cx="208" cy="30" r="5" class="fill-gray-300/40 dark:fill-gray-400/25"/>
+        <circle cx="214" cy="18" r="7" class="fill-gray-300/30 dark:fill-gray-400/20"/>
+        <circle cx="206" cy="6" r="4" class="fill-gray-300/20 dark:fill-gray-400/15"/>
+      </g>
+
+      <!-- Left window with curtains -->
+      <rect x="55" y="128" width="50" height="42" rx="2" class="fill-sky-100 dark:fill-sky-900/40 stroke-amber-300 dark:stroke-amber-600" stroke-width="2"/>
+      <line x1="80" y1="128" x2="80" y2="170" class="stroke-amber-300 dark:stroke-amber-600" stroke-width="1.5"/>
+      <line x1="55" y1="149" x2="105" y2="149" class="stroke-amber-300 dark:stroke-amber-600" stroke-width="1.5"/>
+      <path d="M57 130 Q65 142 57 155" class="fill-rose-300/50 dark:fill-rose-800/40"/>
+      <path d="M103 130 Q95 142 103 155" class="fill-rose-300/50 dark:fill-rose-800/40"/>
+      <rect x="52" y="170" width="56" height="5" rx="1" class="fill-amber-200 dark:fill-amber-700"/>
+
+      <!-- Flower box -->
+      <rect x="54" y="175" width="52" height="12" rx="2" class="fill-amber-700/80 dark:fill-amber-800"/>
+      <circle cx="64" cy="172" r="4.5" class="fill-pink-400 dark:fill-pink-500"/>
+      <circle cx="64" cy="172" r="2" class="fill-pink-200 dark:fill-pink-300"/>
+      <circle cx="80" cy="171" r="4" class="fill-red-400 dark:fill-red-500"/>
+      <circle cx="80" cy="171" r="1.8" class="fill-red-200 dark:fill-red-300"/>
+      <circle cx="96" cy="172" r="4.5" class="fill-pink-300 dark:fill-pink-400"/>
+      <circle cx="96" cy="172" r="2" class="fill-pink-100 dark:fill-pink-200"/>
+      <line x1="64" y1="175" x2="64" y2="182" class="stroke-green-600 dark:stroke-green-700" stroke-width="1.5"/>
+      <line x1="80" y1="175" x2="80" y2="182" class="stroke-green-600 dark:stroke-green-700" stroke-width="1.5"/>
+      <line x1="96" y1="175" x2="96" y2="182" class="stroke-green-600 dark:stroke-green-700" stroke-width="1.5"/>
+      <ellipse cx="61" cy="179" rx="3" ry="1.5" class="fill-green-500/60 dark:fill-green-600/50"/>
+      <ellipse cx="83" cy="179" rx="3" ry="1.5" class="fill-green-500/60 dark:fill-green-600/50"/>
+      <ellipse cx="99" cy="179" rx="3" ry="1.5" class="fill-green-500/60 dark:fill-green-600/50"/>
+
+      <!-- Right window — person at desk (warm glow) -->
+      <rect x="138" y="123" width="62" height="54" rx="4" class="fill-amber-200/40 dark:fill-amber-400/15 blur-sm"/>
+      <rect x="140" y="125" width="58" height="50" rx="2" class="fill-amber-100 dark:fill-amber-300/20 stroke-amber-300 dark:stroke-amber-600" stroke-width="2"/>
+      <line x1="169" y1="125" x2="169" y2="175" class="stroke-amber-300 dark:stroke-amber-600" stroke-width="1.5"/>
+      <line x1="140" y1="150" x2="198" y2="150" class="stroke-amber-300 dark:stroke-amber-600" stroke-width="1.5"/>
+      <rect x="137" y="175" width="64" height="5" rx="1" class="fill-amber-200 dark:fill-amber-700"/>
+
+      <!-- Person silhouette -->
+      <g class="fill-gray-700/60 dark:fill-gray-200/50">
+        <circle cx="162" cy="139" r="5.5"/>
+        <path d="M154 145 Q162 150 170 145 L170 160 L154 160Z"/>
+        <rect x="148" y="160" width="40" height="3.5" rx="1" class="fill-amber-800/50 dark:fill-amber-600/40"/>
+        <rect x="173" y="150" width="12" height="10" rx="1.5" class="fill-blue-400/50 dark:fill-blue-400/35"/>
+        <rect x="177" y="160" width="4" height="3" class="fill-gray-500/40 dark:fill-gray-400/30"/>
+        <rect x="150" y="156" width="5" height="5" rx="1" class="fill-amber-100/60 dark:fill-amber-200/30"/>
+        <path d="M155 157 Q158 158 155 160" fill="none" class="stroke-amber-200/40 dark:stroke-amber-300/25" stroke-width="0.8"/>
+      </g>
+
+      <!-- Door -->
+      <rect x="205" y="168" width="32" height="57" rx="3" class="fill-amber-800 dark:fill-amber-900 stroke-amber-900 dark:stroke-amber-950" stroke-width="1.5"/>
+      <rect x="210" y="174" width="22" height="18" rx="1" class="fill-amber-700/60 dark:fill-amber-800/60"/>
+      <rect x="210" y="198" width="22" height="18" rx="1" class="fill-amber-700/60 dark:fill-amber-800/60"/>
+      <circle cx="230" cy="200" r="2.5" class="fill-amber-400 dark:fill-amber-500"/>
+
+      <!-- Door step -->
+      <rect x="200" y="225" width="42" height="8" rx="2" class="fill-gray-300 dark:fill-gray-600"/>
+      <rect x="197" y="233" width="48" height="5" rx="1" class="fill-gray-300/60 dark:fill-gray-600/60"/>
+      <rect x="208" y="230" width="26" height="4" rx="1" class="fill-amber-600/40 dark:fill-amber-500/25"/>
+
+      <!-- Bushes -->
+      <ellipse cx="42" cy="228" rx="16" ry="10" class="fill-emerald-500/35 dark:fill-emerald-700/40"/>
+      <ellipse cx="30" cy="225" rx="12" ry="9" class="fill-emerald-600/30 dark:fill-emerald-800/35"/>
+      <ellipse cx="250" cy="228" rx="14" ry="9" class="fill-emerald-500/35 dark:fill-emerald-700/40"/>
+      <ellipse cx="262" cy="225" rx="10" ry="8" class="fill-emerald-600/30 dark:fill-emerald-800/35"/>
+    </svg>
+  </div>
+
+  <!-- Fence -->
+  <div id="fence-layer" class="absolute right-[1%] lg:right-[3%] bottom-[8%] hidden lg:block">
+    <svg width="100" height="50" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg" class="opacity-40 dark:opacity-30">
+      <g class="fill-amber-700 dark:fill-amber-800">
+        <rect x="5" y="10" width="4" height="35" rx="1"/>
+        <rect x="25" y="10" width="4" height="35" rx="1"/>
+        <rect x="45" y="10" width="4" height="35" rx="1"/>
+        <rect x="65" y="10" width="4" height="35" rx="1"/>
+        <rect x="85" y="10" width="4" height="35" rx="1"/>
+        <rect x="3" y="18" width="88" height="3" rx="1"/>
+        <rect x="3" y="32" width="88" height="3" rx="1"/>
+      </g>
+      <g class="fill-amber-700 dark:fill-amber-800">
+        <path d="M5 10 L7 4 L9 10Z"/>
+        <path d="M25 10 L27 4 L29 10Z"/>
+        <path d="M45 10 L47 4 L49 10Z"/>
+        <path d="M65 10 L67 4 L69 10Z"/>
+        <path d="M85 10 L87 4 L89 10Z"/>
+      </g>
+    </svg>
+  </div>
+
+
+</div>
+
+<style>
+  @keyframes smoke-drift {
+    0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.5; }
+    33% { transform: translateY(-6px) translateX(3px) scale(1.1); opacity: 0.35; }
+    66% { transform: translateY(-14px) translateX(-2px) scale(1.2); opacity: 0.15; }
+    100% { transform: translateY(-22px) translateX(4px) scale(1.3); opacity: 0; }
+  }
+
+  .chimney-smoke {
+    animation: smoke-drift 4s ease-in-out infinite;
+  }
+</style>
+
+<script>
+  function initParallax() {
+    const scene = document.getElementById("parallax-scene");
+    const layers = {
+      sky: document.getElementById("sky-layer"),
+      mountainsFar: document.getElementById("mountains-far"),
+      hillsNear: document.getElementById("hills-near"),
+      ground: document.getElementById("ground-layer"),
+      houseFar: document.getElementById("house-far"),
+      house: document.getElementById("house-layer"),
+      fence: document.getElementById("fence-layer"),
+    };
+
+    if (!layers.mountainsFar || !scene) return;
+
+    let ticking = false;
+
+    function update() {
+      const y = window.scrollY;
+      const vh = window.innerHeight;
+
+      // Gently fade scene as user scrolls — never fully hidden
+      const fadeStart = vh * 0.5;
+      const fadeEnd = vh * 2;
+      const opacity = y <= fadeStart ? 1 : y >= fadeEnd ? 0.3 : 1 - ((y - fadeStart) / (fadeEnd - fadeStart)) * 0.7;
+      scene.style.opacity = String(opacity);
+
+      // Gentler speeds so layers stay cohesive
+      if (layers.sky)          layers.sky.style.transform = `translateY(${y * 0.02}px)`;
+      if (layers.mountainsFar) layers.mountainsFar.style.transform = `translateY(${y * -0.05}px)`;
+      if (layers.hillsNear)    layers.hillsNear.style.transform = `translateY(${y * -0.1}px)`;
+      if (layers.ground)       layers.ground.style.transform = `translateY(${y * -0.15}px)`;
+      if (layers.houseFar)     layers.houseFar.style.transform = `translateY(${y * -0.08}px)`;
+      if (layers.house)        layers.house.style.transform = `translateY(${y * -0.18}px)`;
+      if (layers.fence)        layers.fence.style.transform = `translateY(${y * -0.16}px)`;
+
+      ticking = false;
+    }
+
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    update();
+  }
+
+  // Desktop only
+  if (window.matchMedia("(min-width: 768px)").matches) {
+    initParallax();
+  }
+
+  document.addEventListener("astro:after-swap", () => {
+    if (window.matchMedia("(min-width: 768px)").matches) {
+      initParallax();
+    }
+  });
+</script>

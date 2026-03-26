@@ -1,104 +1,67 @@
 ---
-import { cn, getAstroPath } from "@lib/utils";
-const { pathname } = Astro.url;
-const subpath = pathname.match(/[^/]+/g);
-import { SITE, LINKS } from "@consts";
-import Container from "@components/Container.astro";
+import { NAV_LINKS } from "../consts";
 
 ---
-
-<header id="header" class="fixed top-0 w-full h-16 z-50 ">
-  <Container size="md">
-    <div class="relative h-full w-full">
-      <div class="absolute left-0 top-1/2 -translate-y-1/2 flex gap-1 font-semibold">
-        <a href={getAstroPath(`/`)} class="flex gap-1 text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out">
-          <svg class="size-6 fill-current">
-            <use href={getAstroPath(`/brand.svg#brand`)}></use>
-          </svg>
-          <div>
-            {SITE.TITLE}
-          </div>
-        </a>
-      </div>
-
-    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-      <nav class="hidden md:flex items-center justify-center text-sm gap-1">
-        {
-          LINKS.map((LINK) => (
-            <a href={getAstroPath(LINK.HREF)} class={cn("h-8 rounded-full px-3 text-current", "flex items-center justify-center", "transition-colors duration-300 ease-in-out", pathname === getAstroPath(LINK.HREF) || "/" + subpath?.[0] === getAstroPath(LINK.HREF) ? "bg-black dark:bg-white text-white dark:text-black" : "hover:bg-black/5 dark:hover:bg-white/20 hover:text-black dark:hover:text-white")}>
-              {LINK.TEXT}
+<header class="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-gray-950/80 border-b border-gray-200/50 dark:border-gray-800/50">
+  <nav class="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2.5 group" aria-label="Home">
+      <img
+        src="/images/avatar.png"
+        alt=""
+        width="32"
+        height="32"
+        class="w-8 h-8 rounded-full ring-2 ring-gray-200 dark:ring-gray-700 group-hover:ring-accent dark:group-hover:ring-accent-dark transition-all duration-200"
+      />
+      <span class="text-lg font-semibold group-hover:text-accent dark:group-hover:text-accent-dark transition-colors">JF</span>
+    </a>
+    <div class="flex items-center gap-6">
+      <ul class="hidden sm:flex items-center gap-6">
+        {NAV_LINKS.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+            >
+              {link.text}
             </a>
-          ))
-        }
-      </nav>
-    </div>
-
-    <div class="buttons absolute right-0 top-1/2 -translate-y-1/2 flex gap-1">
-      <a href={getAstroPath(`/search`)} aria-label={`Search blog posts and projects on ${SITE.TITLE}`} class={cn("hidden md:flex", "size-9 rounded-full p-2 items-center justify-center", "bg-transparent hover:bg-black/5 dark:hover:bg-white/20", "stroke-current hover:stroke-black hover:dark:stroke-white", "border border-black/10 dark:border-white/25", "transition-colors duration-300 ease-in-out", pathname === "/search" || "/" + subpath?.[0] === "/search" ? "pointer-events-none bg-black dark:bg-white text-white dark:text-black" : "")}>
-        <svg class="size-full">
-          <use href={getAstroPath(`/ui.svg#search`)}></use>
-        </svg>
-      </a>
-
-      <a href={getAstroPath("/rss.xml")} target="_blank" aria-label={`Rss feed for ${SITE.TITLE}`} class={cn("hidden md:flex", "size-9 rounded-full p-2 items-center justify-center", "bg-transparent hover:bg-black/5 dark:hover:bg-white/20", "stroke-current hover:stroke-black hover:dark:stroke-white", "border border-black/10 dark:border-white/25", "transition-colors duration-300 ease-in-out")}>
-        <svg class="size-full">
-          <use href={getAstroPath("/ui.svg#rss")}></use>
-        </svg>
-      </a>
-
-      <button id="header-theme-button" aria-label={`Toggle light and dark theme`} class={cn("hidden md:flex", "size-9 rounded-full p-2 items-center justify-center", "bg-transparent hover:bg-black/5 dark:hover:bg-white/20", "stroke-current hover:stroke-black hover:dark:stroke-white", "border border-black/10 dark:border-white/25", "transition-colors duration-300 ease-in-out")}>
-        <svg class="size-full block dark:hidden">
-          <use href={getAstroPath("/ui.svg#sun")}></use>
-        </svg>
-        <svg class="size-full hidden dark:block">
-          <use href={getAstroPath("/ui.svg#moon")}></use>
-        </svg>
-      </button>
-
-      <button id="header-drawer-button" aria-label={`Toggle drawer open and closed`} class={cn("flex md:hidden", "size-9 rounded-full p-2 items-center justify-center", "bg-transparent hover:bg-black/5 dark:hover:bg-white/20", "stroke-current hover:stroke-black hover:dark:stroke-white", "border border-black/10 dark:border-white/25", "transition-colors duration-300 ease-in-out")}>
-        <svg id="drawer-open" class="size-full">
-          <use href={getAstroPath("/ui.svg#menu")}></use>
-        </svg>
-        <svg id="drawer-close" class="size-full">
-          <use href={getAstroPath("/ui.svg#x")}></use>
+          </li>
+        ))}
+      </ul>
+      <button
+        id="mobile-menu-btn"
+        class="sm:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
     </div>
+  </nav>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden sm:hidden border-t border-gray-200/50 dark:border-gray-800/50 bg-white/95 dark:bg-gray-950/95 backdrop-blur-md">
+    <ul class="px-6 py-4 space-y-3">
+      {NAV_LINKS.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+          >
+            {link.text}
+          </a>
+        </li>
+      ))}
+    </ul>
   </div>
-  </Container>
 </header>
 
-<style>
-  #header-drawer-button > #drawer-open {
-    @apply block;
-  }
-
-  #header-drawer-button > #drawer-close {
-    @apply hidden;
-  }
-
-  #header-drawer-button.open > #drawer-open {
-    @apply hidden;
-  }
-
-  #header-drawer-button.open > #drawer-close {
-    @apply block;
-  }
-</style>
-
-<script is:inline>
-  function toggleDrawer() {
-    const drawer = document.getElementById("drawer")
-    const drawerButton = document.getElementById("header-drawer-button")
-    drawer?.classList.toggle("open")
-    drawerButton?.classList.toggle("open")
-  }
-
-  function initializeDrawerButton() {
-    const drawerButton = document.getElementById("header-drawer-button")
-    drawerButton?.addEventListener("click", toggleDrawer)
-  }
-
-  document.addEventListener("astro:after-swap", initializeDrawerButton)
-  initializeDrawerButton()
+<script>
+  const btn = document.getElementById("mobile-menu-btn");
+  const menu = document.getElementById("mobile-menu");
+  btn?.addEventListener("click", () => {
+    const isHidden = menu?.classList.toggle("hidden");
+    btn.setAttribute("aria-expanded", String(!isHidden));
+  });
 </script>

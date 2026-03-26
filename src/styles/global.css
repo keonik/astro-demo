@@ -1,130 +1,150 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
 
-html {
-  overflow-y: scroll;
-  color-scheme: light;
-  background-color: white;
-  font-family: "Cabin", sans-serif;
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-accent: #3b82f6;
+  --color-accent-dark: #60a5fa;
 }
 
-html.dark {
-  color-scheme: dark;
-  background-color: black;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans text-gray-900 bg-white dark:bg-gray-950 dark:text-gray-100 transition-colors duration-300;
+  }
+
+  ::selection {
+    @apply bg-accent/20 dark:bg-accent-dark/20;
+  }
 }
 
-html,
-body {
-  @apply h-full w-full antialiased;
-  @apply bg-white dark:bg-black;
-  @apply text-black/75 dark:text-white/75;
-}
-
-body {
-  @apply relative flex flex-col;
-}
-
-main {
-  @apply flex flex-col flex-1 bg-white dark:bg-black;
-}
-
-header {
-  @apply border-b;
-  @apply transition-all duration-300 ease-in-out;
-}
-
-header:not(.scrolled) {
-  @apply bg-transparent border-transparent;
-}
-
-header.scrolled {
-  @apply bg-white/75 dark:bg-black/50;
-  @apply border-black/10 dark:border-white/25;
-  @apply backdrop-blur-sm saturate-200;
-}
-
-article {
-  @apply prose dark:prose-invert max-w-full pb-12;
-}
-
-.page-heading {
-  @apply font-semibold text-black dark:text-white;
-}
-
-.blend {
-  @apply transition-all duration-300 ease-in-out;
-}
-
-/** Light theme particles on home page */
-@keyframes animateParticle {
+/* Animations */
+@keyframes fade-in-up {
   from {
-    transform: translateY(0px);
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
-    transform: translateY(-2000px);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/** styles for public /animation.js */
-.animate {
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s ease-out forwards;
   opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 1s ease, transform 1s ease;
 }
 
-.animate.show {
-  opacity: 1;
-  transform: translateY(0);
+.animate-delay-100 { animation-delay: 100ms; }
+.animate-delay-200 { animation-delay: 200ms; }
+.animate-delay-300 { animation-delay: 300ms; }
+
+/* Gentle floating animation for hero avatar */
+@keyframes avatar-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
-article img {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  display: block;
-  margin: 0 auto;
+.avatar-float {
+  animation: avatar-float 4s ease-in-out infinite;
 }
 
-/**
- * TWINKLE STARS
- */
-
-#twinkle-star.template {
-  @apply absolute -left-full; /* hide offscreen */
+/* Prose overrides for dark mode */
+.prose {
+  @apply text-gray-700 dark:text-gray-300;
 }
 
-#twinkle-star.twinkle {
-  @apply animate-twinkle; /* defined in tailwind.config */
+.prose :where(h1, h2, h3, h4):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply text-gray-900 dark:text-gray-100;
 }
 
-/**
- * Meteors
- */
-
-#meteors .shower {
-  @apply absolute inset-0 top-0;
-  @apply left-1/2 -translate-x-1/2;
-  @apply w-screen aspect-square;
+.prose :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply text-accent dark:text-accent-dark underline decoration-accent/30 hover:decoration-accent transition-colors;
 }
 
-#meteors .meteor {
-  @apply animate-meteor; /* defined in tailwind.config */
-  @apply absolute top-1/2 left-1/2 w-px h-[75vh];
-  @apply bg-gradient-to-b from-white to-transparent;
+/* Inline code only (not inside pre blocks) */
+.prose :where(code):not(:where(pre *, [class~="not-prose"], [class~="not-prose"] *)) {
+  @apply bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm;
 }
 
-#meteors .shower.ur {
-  @apply rotate-45;
+.prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 rounded-lg;
 }
 
-#meteors .shower.dr {
-  @apply rotate-135;
+/* Reset code inside pre — let Shiki handle styling */
+.prose :where(pre code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
 }
 
-#meteors .shower.dl {
-  @apply rotate-225;
+/* Shiki dual-theme support
+   Shiki sets both light (inline) and dark (--shiki-dark) styles on every element.
+   We need to force the right one based on html.dark class. */
+
+/* Light mode: use inline colors (already set by Shiki), override background */
+.astro-code {
+  background-color: #f8f9fa !important;
 }
 
-#meteors .shower.ul {
-  @apply rotate-315;
+/* Dark mode: swap to CSS custom properties */
+html.dark .astro-code {
+  color: var(--shiki-dark) !important;
+  background-color: #111827 !important;
+}
+
+html.dark .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: transparent !important;
+}
+
+/* Center images (gifs, screenshots) in blog posts */
+.prose :where(img):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 0.5rem;
+}
+
+.prose :where(blockquote):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply border-accent/50 text-gray-600 dark:text-gray-400;
+}
+
+.prose :where(strong):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply text-gray-900 dark:text-gray-100;
+}
+
+/* Print styles for resume */
+@media print {
+  nav, footer, .no-print {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt;
+  }
+  .print-break-before {
+    break-before: page;
+  }
+  a {
+    color: black !important;
+    text-decoration: none !important;
+  }
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+  a[href^="#"]::after,
+  a[href^="javascript"]::after {
+    content: "";
+  }
 }
