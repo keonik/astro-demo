@@ -286,10 +286,10 @@
       const y = window.scrollY;
       const vh = window.innerHeight;
 
-      // Fade out the entire scene as user scrolls past the first viewport
-      const fadeStart = vh * 0.3;
-      const fadeEnd = vh * 1.2;
-      const opacity = y <= fadeStart ? 1 : y >= fadeEnd ? 0 : 1 - (y - fadeStart) / (fadeEnd - fadeStart);
+      // Gently fade scene as user scrolls — never fully hidden
+      const fadeStart = vh * 0.5;
+      const fadeEnd = vh * 2;
+      const opacity = y <= fadeStart ? 1 : y >= fadeEnd ? 0.3 : 1 - ((y - fadeStart) / (fadeEnd - fadeStart)) * 0.7;
       scene.style.opacity = String(opacity);
 
       // Gentler speeds so layers stay cohesive
