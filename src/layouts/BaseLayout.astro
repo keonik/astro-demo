@@ -64,6 +64,7 @@ const ogImageURL = new URL(ogImage, Astro.site ?? SITE.url).href;
     <title>{pageTitle}</title>
 
     <!-- Theme init — runs before paint to prevent flash -->
+    <style>html:not(.theme-ready) { visibility: hidden; }</style>
     <script is:inline>
       (() => {
         try {
@@ -73,8 +74,11 @@ const ogImageURL = new URL(ogImage, Astro.site ?? SITE.url).href;
             : theme;
           const root = document.documentElement;
           root.classList.toggle("dark", resolved === "dark");
-          root.style.background = resolved === "dark" ? "#030712" : "#fff";
-        } catch {}
+          root.style.backgroundColor = resolved === "dark" ? "#030712" : "#fff";
+          root.classList.add("theme-ready");
+        } catch {
+          document.documentElement.classList.add("theme-ready");
+        }
       })();
     </script>
   </head>
