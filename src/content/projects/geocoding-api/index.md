@@ -1,6 +1,7 @@
 ---
 title: "Geocoding API"
 summary: "A Go REST API for geocoding and location lookup using US ZIP codes and Ohio address data, powered by PostGIS."
+demoUrl: https://geocode.jfay.dev/
 repoUrl: https://github.com/keonik/geocoding-api
 tags:
   - go
