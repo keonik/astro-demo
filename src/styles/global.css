@@ -14,10 +14,13 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overscroll-behavior: none;
+    @apply bg-white dark:bg-gray-950;
   }
 
   body {
     @apply font-sans text-gray-900 bg-white dark:bg-gray-950 dark:text-gray-100 transition-colors duration-300;
+    overscroll-behavior: none;
   }
 
   ::selection {
