@@ -8,7 +8,7 @@ tags:
   - tailwindcss
   - postgresql
   - ai
-date: 2025-06-01
+date: 2026-03-01
 draft: false
 ---
 

@@ -15,7 +15,7 @@ tags:
   - mcp
   - playwright
   - web-scraping
-date: 2025-06-01
+date: 2026-03-25
 draft: false
 ---
 
