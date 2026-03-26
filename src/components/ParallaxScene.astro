@@ -267,6 +267,7 @@
 
 <script>
   function initParallax() {
+    const scene = document.getElementById("parallax-scene");
     const layers = {
       sky: document.getElementById("sky-layer"),
       mountainsFar: document.getElementById("mountains-far"),
@@ -277,22 +278,28 @@
       fence: document.getElementById("fence-layer"),
     };
 
-    if (!layers.mountainsFar) return;
+    if (!layers.mountainsFar || !scene) return;
 
     let ticking = false;
 
     function update() {
       const y = window.scrollY;
+      const vh = window.innerHeight;
 
-      // Simple: each layer translates up at a different speed.
-      // Closer layers move faster → depth illusion.
-      if (layers.sky)          layers.sky.style.transform = `translateY(${y * 0.05}px)`;
-      if (layers.mountainsFar) layers.mountainsFar.style.transform = `translateY(${y * -0.1}px)`;
-      if (layers.hillsNear)    layers.hillsNear.style.transform = `translateY(${y * -0.2}px)`;
-      if (layers.ground)       layers.ground.style.transform = `translateY(${y * -0.3}px)`;
-      if (layers.houseFar)     layers.houseFar.style.transform = `translateY(${y * -0.15}px)`;
-      if (layers.house)        layers.house.style.transform = `translateY(${y * -0.35}px)`;
-      if (layers.fence)        layers.fence.style.transform = `translateY(${y * -0.32}px)`;
+      // Fade out the entire scene as user scrolls past the first viewport
+      const fadeStart = vh * 0.3;
+      const fadeEnd = vh * 1.2;
+      const opacity = y <= fadeStart ? 1 : y >= fadeEnd ? 0 : 1 - (y - fadeStart) / (fadeEnd - fadeStart);
+      scene.style.opacity = String(opacity);
+
+      // Gentler speeds so layers stay cohesive
+      if (layers.sky)          layers.sky.style.transform = `translateY(${y * 0.02}px)`;
+      if (layers.mountainsFar) layers.mountainsFar.style.transform = `translateY(${y * -0.05}px)`;
+      if (layers.hillsNear)    layers.hillsNear.style.transform = `translateY(${y * -0.1}px)`;
+      if (layers.ground)       layers.ground.style.transform = `translateY(${y * -0.15}px)`;
+      if (layers.houseFar)     layers.houseFar.style.transform = `translateY(${y * -0.08}px)`;
+      if (layers.house)        layers.house.style.transform = `translateY(${y * -0.18}px)`;
+      if (layers.fence)        layers.fence.style.transform = `translateY(${y * -0.16}px)`;
 
       ticking = false;
     }
