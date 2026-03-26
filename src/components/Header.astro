@@ -30,7 +30,9 @@ import { NAV_LINKS } from "../consts";
       <button
         id="mobile-menu-btn"
         class="sm:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-        aria-label="Open menu"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
       >
         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
@@ -59,6 +61,7 @@ import { NAV_LINKS } from "../consts";
   const btn = document.getElementById("mobile-menu-btn");
   const menu = document.getElementById("mobile-menu");
   btn?.addEventListener("click", () => {
-    menu?.classList.toggle("hidden");
+    const isHidden = menu?.classList.toggle("hidden");
+    btn.setAttribute("aria-expanded", String(!isHidden));
   });
 </script>

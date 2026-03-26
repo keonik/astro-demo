@@ -1,6 +1,6 @@
 export const SITE = {
   title: "John Fay",
-  description: "Software Engineer Manager — building teams and shipping products.",
+  description: "Staff Software Engineer — building full-stack products and AI-powered systems.",
   author: "John Fay",
   url: "https://keonik.dev",
 };

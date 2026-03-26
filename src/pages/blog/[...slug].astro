@@ -13,9 +13,32 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.summary,
+  datePublished: post.data.date.toISOString(),
+  ...(post.data.lastUpdated && { dateModified: post.data.lastUpdated.toISOString() }),
+  author: {
+    "@type": "Person",
+    name: "John Fay",
+    url: "https://keonik.dev",
+  },
+  publisher: {
+    "@type": "Person",
+    name: "John Fay",
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": `https://keonik.dev/blog/${post.id}/`,
+  },
+};
 ---
 
 <BaseLayout title={post.data.title} description={post.data.summary}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <article class="max-w-3xl mx-auto px-6 py-20">
     <header class="mb-10 animate-fade-in-up">
       <a href="/blog" class="text-sm text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors mb-4 inline-block">

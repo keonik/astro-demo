@@ -14,6 +14,18 @@ const projects = sortByDate(
 ---
 
 <BaseLayout>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "John Fay",
+    url: "https://keonik.dev",
+    jobTitle: "Staff Software Engineer",
+    sameAs: [
+      "https://github.com/keonik",
+      "https://www.linkedin.com/in/johnkfay/"
+    ],
+    image: "https://keonik.dev/images/avatar.png",
+  })} />
   <ParallaxScene />
 
   <div class="relative z-10 max-w-3xl mx-auto px-6 py-20">

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://keonik.dev/sitemap-index.xml
