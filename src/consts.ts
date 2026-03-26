@@ -2,7 +2,7 @@ export const SITE = {
   title: "John Fay",
   description: "Staff Software Engineer — building full-stack products and AI-powered systems.",
   author: "John Fay",
-  url: "https://keonik.dev",
+  url: "https://jfay.dev",
 };
 
 export const NAV_LINKS = [
