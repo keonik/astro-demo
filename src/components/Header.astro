@@ -4,8 +4,15 @@ import { NAV_LINKS } from "../consts";
 ---
 <header class="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-gray-950/80 border-b border-gray-200/50 dark:border-gray-800/50">
   <nav class="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="/" class="text-lg font-semibold hover:text-accent dark:hover:text-accent-dark transition-colors">
-      JF
+    <a href="/" class="flex items-center gap-2.5 group" aria-label="Home">
+      <img
+        src="/images/avatar.png"
+        alt=""
+        width="32"
+        height="32"
+        class="w-8 h-8 rounded-full ring-2 ring-gray-200 dark:ring-gray-700 group-hover:ring-accent dark:group-hover:ring-accent-dark transition-all duration-200"
+      />
+      <span class="text-lg font-semibold group-hover:text-accent dark:group-hover:text-accent-dark transition-colors">JF</span>
     </a>
     <div class="flex items-center gap-6">
       <ul class="hidden sm:flex items-center gap-6">

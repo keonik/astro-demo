@@ -46,6 +46,16 @@
 .animate-delay-200 { animation-delay: 200ms; }
 .animate-delay-300 { animation-delay: 300ms; }
 
+/* Gentle floating animation for hero avatar */
+@keyframes avatar-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.avatar-float {
+  animation: avatar-float 4s ease-in-out infinite;
+}
+
 /* Prose overrides for dark mode */
 .prose {
   @apply text-gray-700 dark:text-gray-300;

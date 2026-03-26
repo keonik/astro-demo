@@ -25,6 +25,15 @@ const { Content } = await render(post);
         {post.data.title}
       </h1>
       <div class="flex items-center gap-3 mt-4 text-sm text-gray-500 dark:text-gray-400">
+        <img
+          src="/images/avatar.png"
+          alt="John Fay"
+          width="24"
+          height="24"
+          class="w-6 h-6 rounded-full ring-1 ring-gray-200 dark:ring-gray-700"
+        />
+        <span class="font-medium text-gray-700 dark:text-gray-300">John Fay</span>
+        <span>·</span>
         <time datetime={post.data.date.toISOString()}>
           {formatDate(post.data.date)}
         </time>
