@@ -30,7 +30,7 @@ const projects = sortByDate(
 
   <div class="relative z-10 max-w-3xl mx-auto px-6 py-20">
     <!-- Content panel with solid background for readability -->
-    <div class="md:bg-white/85 md:dark:bg-gray-950/90 md:backdrop-blur-sm md:rounded-2xl md:px-10 md:py-12 md:-mx-4 md:shadow-sm md:dark:shadow-none md:border md:border-gray-200/50 md:dark:border-gray-800/50">
+    <div class="md:bg-white/95 md:dark:bg-gray-950/90 md:backdrop-blur-sm md:rounded-2xl md:px-10 md:py-12 md:-mx-4 md:shadow-sm md:dark:shadow-none md:border md:border-gray-200/50 md:dark:border-gray-800/50">
     <!-- Hero -->
     <section class="animate-fade-in-up">
       <div class="flex flex-col-reverse sm:flex-row items-start sm:items-center gap-6 sm:gap-10">
@@ -47,7 +47,7 @@ const projects = sortByDate(
             <a href="/work" class="text-sm font-medium text-accent dark:text-accent-dark hover:underline">
               View my work &rarr;
             </a>
-            <a href="/blog" class="text-sm font-medium text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:underline">
+            <a href="/blog" class="text-sm font-medium text-gray-600 hover:text-gray-800 dark:hover:text-gray-300 hover:underline">
               Read my blog &rarr;
             </a>
           </div>
@@ -68,7 +68,7 @@ const projects = sortByDate(
     <section class="mt-20 animate-fade-in-up animate-delay-100">
       <div class="flex items-center justify-between mb-8">
         <h2 class="text-xl font-semibold">Recent Posts</h2>
-        <a href="/blog" class="text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
+        <a href="/blog" class="text-sm text-gray-600 hover:text-gray-800 dark:hover:text-gray-300 transition-colors">
           View all &rarr;
         </a>
       </div>
@@ -84,7 +84,7 @@ const projects = sortByDate(
                   {formatDate(post.data.date)}
                 </time>
               </div>
-              <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 line-clamp-1">
+              <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-1">
                 {post.data.summary}
               </p>
             </article>
@@ -97,7 +97,7 @@ const projects = sortByDate(
     <section class="mt-20 animate-fade-in-up animate-delay-200">
       <div class="flex items-center justify-between mb-8">
         <h2 class="text-xl font-semibold">Projects</h2>
-        <a href="/projects" class="text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
+        <a href="/projects" class="text-sm text-gray-600 hover:text-gray-800 dark:hover:text-gray-300 transition-colors">
           View all &rarr;
         </a>
       </div>
@@ -107,7 +107,7 @@ const projects = sortByDate(
             <div class="flex items-start justify-between gap-4">
               <div>
                 <h3 class="font-medium">{project.data.title}</h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{project.data.summary}</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{project.data.summary}</p>
               </div>
               <div class="flex gap-2 shrink-0">
                 {project.data.repoUrl && (
@@ -124,12 +124,12 @@ const projects = sortByDate(
             </div>
             <div class="flex gap-2 mt-3 flex-wrap">
               {project.data.tags.slice(0, 4).map((tag) => (
-                <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+                <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">
                   {tag}
                 </span>
               ))}
               {project.data.tags.length > 4 && (
-                <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+                <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">
                   +{project.data.tags.length - 4}
                 </span>
               )}
