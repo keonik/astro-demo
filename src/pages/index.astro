@@ -1,15 +1,15 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import ParallaxScene from "../components/ParallaxScene.astro";
 import { getCollection } from "astro:content";
+import ParallaxScene from "../components/ParallaxScene.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import { formatDate, sortByDate } from "../lib/utils";
 
 const posts = sortByDate(
-  (await getCollection("blog")).filter((p) => !p.data.draft)
+  (await getCollection("blog")).filter((p) => !p.data.draft),
 ).slice(0, 3);
 
 const projects = sortByDate(
-  (await getCollection("projects")).filter((p) => !p.data.draft)
+  (await getCollection("projects")).filter((p) => !p.data.draft),
 ).slice(0, 3);
 ---
 

@@ -1,27 +1,34 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const work = (await getCollection("work")).sort((a, b) => {
   const parseDate = (d: string) => {
     if (d === "now") return new Date();
     const [month, day, year] = d.split("/");
-    return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+    return new Date(
+      parseInt(year, 10),
+      parseInt(month, 10) - 1,
+      parseInt(day, 10),
+    );
   };
-  return parseDate(b.data.dateStart).getTime() - parseDate(a.data.dateStart).getTime();
+  return (
+    parseDate(b.data.dateStart).getTime() -
+    parseDate(a.data.dateStart).getTime()
+  );
 });
 
 const rendered = await Promise.all(
   work.map(async (w) => {
     const { Content } = await render(w);
     return { ...w, Content };
-  })
+  }),
 );
 
 function formatWorkDate(d: string): string {
   if (d === "now") return "Present";
   const [month, , year] = d.split("/");
-  const date = new Date(parseInt(year), parseInt(month) - 1);
+  const date = new Date(parseInt(year, 10), parseInt(month, 10) - 1);
   return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
 }
 ---

@@ -1,10 +1,10 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { sortByDate } from "../../lib/utils";
 
 const projects = sortByDate(
-  (await getCollection("projects")).filter((p) => !p.data.draft)
+  (await getCollection("projects")).filter((p) => !p.data.draft),
 );
 ---
 

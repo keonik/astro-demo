@@ -45,14 +45,25 @@
   opacity: 0;
 }
 
-.animate-delay-100 { animation-delay: 100ms; }
-.animate-delay-200 { animation-delay: 200ms; }
-.animate-delay-300 { animation-delay: 300ms; }
+.animate-delay-100 {
+  animation-delay: 100ms;
+}
+.animate-delay-200 {
+  animation-delay: 200ms;
+}
+.animate-delay-300 {
+  animation-delay: 300ms;
+}
 
 /* Gentle floating animation for hero avatar */
 @keyframes avatar-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 .avatar-float {
@@ -64,7 +75,10 @@
   @apply text-gray-700 dark:text-gray-300;
 }
 
-.prose :where(h1, h2, h3, h4):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose
+  :where(h1, h2, h3, h4):not(
+    :where([class~="not-prose"], [class~="not-prose"] *)
+  ) {
   @apply text-gray-900 dark:text-gray-100;
 }
 
@@ -73,7 +87,8 @@
 }
 
 /* Inline code only (not inside pre blocks) */
-.prose :where(code):not(:where(pre *, [class~="not-prose"], [class~="not-prose"] *)) {
+.prose
+:where(code):not(:where(pre *, [class~="not-prose"], [class~="not-prose"] *)) {
   @apply bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm;
 }
 
@@ -82,7 +97,8 @@
 }
 
 /* Reset code inside pre — let Shiki handle styling */
-.prose :where(pre code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose
+:where(pre code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   background: none;
   padding: 0;
   border-radius: 0;
@@ -95,18 +111,18 @@
 
 /* Light mode: use inline colors (already set by Shiki), override background */
 .astro-code {
-  background-color: #f8f9fa !important;
+  background-color: #f8f9fa;
 }
 
 /* Dark mode: swap to CSS custom properties */
 html.dark .astro-code {
-  color: var(--shiki-dark) !important;
-  background-color: #111827 !important;
+  color: var(--shiki-dark);
+  background-color: #111827;
 }
 
 html.dark .astro-code span {
-  color: var(--shiki-dark) !important;
-  background-color: transparent !important;
+  color: var(--shiki-dark);
+  background-color: transparent;
 }
 
 /* Center images (gifs, screenshots) in blog posts */
@@ -116,30 +132,34 @@ html.dark .astro-code span {
   border-radius: 0.5rem;
 }
 
-.prose :where(blockquote):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose
+  :where(blockquote):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply border-accent/50 text-gray-600 dark:text-gray-400;
 }
 
-.prose :where(strong):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose
+  :where(strong):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply text-gray-900 dark:text-gray-100;
 }
 
 /* Print styles for resume */
 @media print {
-  nav, footer, .no-print {
-    display: none !important;
+  nav,
+  footer,
+  .no-print {
+    display: none;
   }
   body {
-    background: white !important;
-    color: black !important;
+    background: white;
+    color: black;
     font-size: 11pt;
   }
   .print-break-before {
     break-before: page;
   }
   a {
-    color: black !important;
-    text-decoration: none !important;
+    color: black;
+    text-decoration: none;
   }
   a[href]::after {
     content: " (" attr(href) ")";

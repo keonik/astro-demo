@@ -1,6 +1,6 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { formatDate } from "../../lib/utils";
 
 export async function getStaticPaths() {
@@ -20,7 +20,9 @@ const jsonLd = {
   headline: post.data.title,
   description: post.data.summary,
   datePublished: post.data.date.toISOString(),
-  ...(post.data.lastUpdated && { dateModified: post.data.lastUpdated.toISOString() }),
+  ...(post.data.lastUpdated && {
+    dateModified: post.data.lastUpdated.toISOString(),
+  }),
   author: {
     "@type": "Person",
     name: "John Fay",

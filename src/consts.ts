@@ -1,6 +1,7 @@
 export const SITE = {
   title: "John Fay",
-  description: "Staff Software Engineer — building full-stack products and AI-powered systems.",
+  description:
+    "Staff Software Engineer — building full-stack products and AI-powered systems.",
   author: "John Fay",
   url: "https://jfay.dev",
 };
@@ -14,6 +15,10 @@ export const NAV_LINKS = [
 
 export const SOCIALS = [
   { name: "GitHub", href: "https://github.com/keonik", icon: "github" },
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/johnkfay/", icon: "linkedin" },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/johnkfay/",
+    icon: "linkedin",
+  },
   { name: "Email", href: "mailto:john.k.fay@gmail.com", icon: "email" },
 ] as const;

@@ -9,7 +9,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint": "biome lint .",
+    "format": "biome format --write .",
+    "check": "biome check --write ."
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.2",
@@ -23,6 +26,6 @@
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.8"
+    "@biomejs/biome": "^2.4.9"
   }
 }
