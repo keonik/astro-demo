@@ -1,7 +1,8 @@
 ---
-import Footer from "../components/Footer.astro";
-import Header from "../components/Header.astro";
+import { ClientRouter } from "astro:transitions";
 import { SITE } from "../consts";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -62,11 +63,12 @@ const ogImageURL = new URL(ogImage, Astro.site ?? SITE.url).href;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <title>{pageTitle}</title>
+    <ClientRouter />
 
     <!-- Theme init — runs before paint to prevent flash -->
     <style>html:not(.theme-ready) { visibility: hidden; }</style>
     <script is:inline>
-      (() => {
+      function applyTheme() {
         try {
           const theme = localStorage.getItem("theme") || "system";
           const resolved = theme === "system"
@@ -79,7 +81,9 @@ const ogImageURL = new URL(ogImage, Astro.site ?? SITE.url).href;
         } catch {
           document.documentElement.classList.add("theme-ready");
         }
-      })();
+      }
+      applyTheme();
+      document.addEventListener("astro:after-swap", applyTheme);
     </script>
   </head>
   <body class="min-h-screen flex flex-col">

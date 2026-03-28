@@ -11,6 +11,7 @@ export async function GET(context: { site: string }) {
     title: SITE.title,
     description: SITE.description,
     site: context.site || SITE.url,
+    stylesheet: "/rss-style.xsl",
     items: posts.map((post) => ({
       title: post.data.title,
       description: post.data.summary,
